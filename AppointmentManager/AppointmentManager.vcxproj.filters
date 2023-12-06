@@ -24,6 +24,12 @@
     <ClCompile Include="list.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="appointment.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Calendar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="menu.h">
@@ -33,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Calendar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

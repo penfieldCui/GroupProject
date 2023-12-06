@@ -1,5 +1,5 @@
 #include "list.h"
-#include "item.h"
+#include "appointment.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -13,30 +13,34 @@ void Display(PLISTNODE list) {
 		return;
 	
 	do {
-		PrintItem(current->data);
+		PrintAppt(current->data);
 		current = current->next;
 	} while (current != NULL);
 }
 
-void Add(PLISTNODE* list, ITEM i) {
-	PLISTNODE newnode = (PLISTNODE)malloc(sizeof(LISTNODE));
+bool Add(PLISTNODE* list, APPOINTMENT i) {
+	PLISTNODE newNode = (PLISTNODE)malloc(sizeof(LISTNODE));
 	/***********************************************************************/
-	assert(newnode != NULL); //  quick and dirty !!!!!!!!!!!!!!!!
+	assert(newNode != NULL); //  quick and dirty !!!!!!!!!!!!!!!!
 
-	newnode->data = CopyItem(i);
-	newnode->next = *list;
-	*list = newnode;
+	if (!CopyAppt(&(newNode->data), i)) {
+		free(newNode);
+		return false;
+	}
+	newNode->next = *list;
+	*list = newNode;
 
+	return true;
 }
 
-void Remove(PLISTNODE* list, ITEM i) {
+void Remove(PLISTNODE* list, APPOINTMENT i) {
 	//if (*list == NULL)    /*  not sure */   //case 0 list empty   nth to remove
 	//	return;
 
 	PLISTNODE current = *list;
 
 	// not empty, match first/head item			after that current seems never be NULL
-	if (current != NULL && CompareItems(current->data, i)) {
+	if (current != NULL && CompareAppt(current->data, i)) {
 		
 		if (current->next == NULL) // case 1 current is the only item
 			*list = NULL;
@@ -50,7 +54,7 @@ void Remove(PLISTNODE* list, ITEM i) {
 	//PLISTNODE prev = NULL;
 	PLISTNODE prev = NULL;
 	
-	while (current != NULL && !CompareItems(current->data, i)) {   //
+	while (current != NULL && !CompareAppt(current->data, i)) {   //
 		prev = current;
 		current = current->next;
 	}
@@ -67,32 +71,32 @@ void Remove(PLISTNODE* list, ITEM i) {
 }
 
 
-PLISTNODE Search(PLISTNODE list, ITEM i){
-	PLISTNODE current = list;
-
-	while (current != NULL) {
-		if (CompareItems(current->data, i))
-			return current;  // 
-
-		current = current->next;
-	}
-	
-	return (PLISTNODE)NULL;
-}
-
-PLISTNODE SearchR(PLISTNODE list, ITEM i) {
-	PLISTNODE current = list;
-
-	if (current == NULL) // 2 cases
-		return (PLISTNODE)NULL;
-
-	else
-		if (CompareItems(current->data, i))
-			return current;
-		else
-			return SearchR(current->next, i);
-	
-}
+//PLISTNODE Search(PLISTNODE list, APPOINTMENT i){
+//	PLISTNODE current = list;
+//
+//	while (current != NULL) {
+//		if (CompareItems(current->data, i))
+//			return current;  // 
+//
+//		current = current->next;
+//	}
+//	
+//	return (PLISTNODE)NULL;
+//}
+//
+//PLISTNODE SearchR(PLISTNODE list, APPOINTMENT i) {
+//	PLISTNODE current = list;
+//
+//	if (current == NULL) // 2 cases
+//		return (PLISTNODE)NULL;
+//
+//	else
+//		if (CompareItems(current->data, i))
+//			return current;
+//		else
+//			return SearchR(current->next, i);
+//	
+//}
 
 
 
@@ -103,7 +107,7 @@ void DestroyList(PLISTNODE* list) {
 	while (current != NULL) {
 		PLISTNODE tmp = current;
 		current = current->next;
-		DestroyItem(tmp->data);
+		//DestroyAppointment(tmp->data);
 		free(tmp);
 	}
 	*list = NULL;  //its better

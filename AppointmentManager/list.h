@@ -1,26 +1,27 @@
 #pragma once
 
-#include "item.h"
+#include "appointment.h"
+#include <stdbool.h>
 
 
 // list interface
 // czp
 
-typedef struct listnode {
-	ITEM data;
-	struct listnode* next;
+typedef struct listNode {
+	APPOINTMENT data;
+	struct listNode* next;
 }LISTNODE, * PLISTNODE;
 
 
 void Display(PLISTNODE list);
 
-void Add(PLISTNODE* list, ITEM i);
+bool Add(PLISTNODE* list, APPOINTMENT i);
 
-void Remove(PLISTNODE* list, ITEM i);
+void Remove(PLISTNODE* list, APPOINTMENT i);
 
-PLISTNODE Search(PLISTNODE list, ITEM i);
+//PLISTNODE Search(PLISTNODE list, APPOINTMENT i);
 
-PLISTNODE SearchR(PLISTNODE list, ITEM i);
+//PLISTNODE SearchR(PLISTNODE list, APPOINTMENT i);
 
 
 void DestroyList(PLISTNODE* list);

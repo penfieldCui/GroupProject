@@ -127,12 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="appointment.c" />
+    <ClCompile Include="Calendar.c" />
     <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="appointment.h" />
+    <ClInclude Include="Calendar.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="menu.h" />
   </ItemGroup>
