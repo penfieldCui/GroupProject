@@ -1,7 +1,13 @@
+// function to diplay calader
+// program71985 - fall23
+// zongping cui
 #define _CRT_SECURE_NO_WARNINGS
+#include "Calendar.h"
+#include <stdbool.h>
 #include <stdio.h>
 
-// Function to return the number of days in a given month
+
+// return the number of days in a given month
 int getNumberOfDays(int month, int year) {
     switch (month) {
     case 4: case 6: case 9: case 11:
@@ -28,48 +34,70 @@ int getDayOfWeek(int day, int month, int year) {
     return dayOfWeek;
 }
 
-// Function to print the calendar
-void printCalendar(int month, int year) {
+// print the calendar
+void PrintCalendar(int month, int year) {
+
+
     printf("Calendar for %02d/%d\n", month, year);
     printf("Sun Mon Tue Wed Thu Fri Sat\n");
 
     int days = getNumberOfDays(month, year);
     int startDay = getDayOfWeek(1, month, year);
 
-    // Adjusting for Zeller's Congruence output
+    // adjusting output
     startDay = (startDay + 5) % 7;
 
-    // Print spaces for the first day
     for (int i = 0; i < startDay; i++) {
         printf("    ");
     }
 
-    // Print the days
+    // print the days
     for (int i = 1; i <= days; i++) {
-        // Check if the day is weekend (Sunday or Saturday)
+
+        // if the day has appointment
         if ((i + startDay - 1) % 7 == 0 || (i + startDay - 1) % 7 == 6) {
-            printf("\033[31m"); // Set text color to red
+            printf("\033[0m"); // Set text color to red
         }
 
         printf("%3d ", i);
 
         if ((i + startDay) % 7 == 0) {
-            printf("\033[0m\n"); // Reset text color to default
+            printf("\n"); 
         }
-        else if (i == days) {
-            printf("\033[0m\n"); // Reset text color to default
-        }
-        else {
-            printf("\033[0m"); // Reset text color to default
-        }
+        //else if (i == days) {
+        //    printf("\033[0m\n"); // Reset text color to default
+        //}
+        //else {
+        //    printf("\033[0m"); // Reset text color to default
+        //}
     }
     printf("\n");
 }
 
+bool nextMonth(int* month, int* year) {
+    if (*month == 12) {
+        *month = 1;
+        *year += 1;
+    }
+    else {
+        *month += 1;
+    }   
+}
+
+// test
 int main() {
-    int month, year;
-    printf("Enter month and year (MM YYYY): ");
-    scanf("%d %d", &month, &year);
-    printCalendar(month, year);
+    //int month, year;
+    printf("Enter month and year (MM YYYY): \n");
+    //scanf("%d %d", &month, &year);
+    DAY* d = InitialD(12,12,2023);
+
+    int month = GetMonth(d);
+    int year = GetYear(d);
+
+    PrintCalendar(month, year);
+
+    nextMonth(&month,&year);
+    PrintCalendar(month, year);
+    DestroyDay(d);
     return 0;
 }

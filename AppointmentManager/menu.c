@@ -3,6 +3,11 @@
 
 #include <stdio.h>
 
+
+void subMenu() {
+
+}
+
 void Menu() {
 
 	printf(" ********************************** \n");

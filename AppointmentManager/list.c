@@ -107,7 +107,7 @@ void DestroyList(PLISTNODE* list) {
 	while (current != NULL) {
 		PLISTNODE tmp = current;
 		current = current->next;
-		//DestroyAppointment(tmp->data);
+		DestroyAppointment(&(tmp->data));
 		free(tmp);
 	}
 	*list = NULL;  //its better

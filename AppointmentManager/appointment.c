@@ -4,6 +4,7 @@
 #include "appointment.h"
 
 #include <string.h>
+#include <stdlib.h>
 
 
 //return true when they are conflict
@@ -18,10 +19,10 @@ bool CheckConflict(APPOINTMENT a, APPOINTMENT b) {
 }
 
 
-
+// TODO: generate Id
 APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description) {
     APPOINTMENT a;
-    a.id = id;
+    a.id = id;  // 8-digit   yyMMddxx
     strncpy(a.title, title, MAXSIZE);
     a.start_time = start_time;
     a.duration_minutes = duration;
@@ -171,3 +172,9 @@ void SetApptStatus(APPOINTMENT* appt, STATUS_ENUM status) {
 }
 
 
+
+
+void DestroyAppointment(APPOINTMENT* appt) {
+    if (appt != NULL)
+        free(appt);
+}

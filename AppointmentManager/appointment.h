@@ -12,6 +12,7 @@
 
 typedef enum status_enum {
 	NONE = 0, NOT_EXPIRED = 1, EXPIRED = 2 , CANCELED = 3
+	// Note: Dec 7, canceled might be oudated, but it dosent matter currently
 }STATUS_ENUM;
 
 typedef struct appointment {
@@ -19,9 +20,6 @@ typedef struct appointment {
 	int id;
 
 	char title[MAXSIZE];
-
-	//char date[MAXDATE]; // format: yyyy-MM-dd
-	//char time[MAXTIME];  // format: hh:mm
 
 	struct tm start_time; // use struct tm to represent start time
 	int duration_minutes; // duration minutes
@@ -50,6 +48,13 @@ bool CheckConflict(APPOINTMENT a, APPOINTMENT b);
 
 // display
 void PrintAppt(APPOINTMENT appt);
+
+
+// TODO: I/O
+// 
+// load
+// save
+
 
 // get set
 int GetAppId(APPOINTMENT appt);
@@ -81,3 +86,6 @@ void SetApptDescription(APPOINTMENT* appt, const char* description);
 STATUS_ENUM GetApptStatus(APPOINTMENT appt);
 
 void SetApptStatus(APPOINTMENT* appt, STATUS_ENUM status);
+
+
+void DestroyAppointment(APPOINTMENT* appt);

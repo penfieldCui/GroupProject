@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="appointment.c" />
     <ClCompile Include="Calendar.c" />
+    <ClCompile Include="day.c" />
     <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
@@ -136,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="appointment.h" />
     <ClInclude Include="Calendar.h" />
+    <ClInclude Include="day.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="menu.h" />
   </ItemGroup>
