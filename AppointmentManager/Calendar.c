@@ -84,20 +84,20 @@ bool nextMonth(int* month, int* year) {
     }   
 }
 
-// test
-int main() {
-    //int month, year;
-    printf("Enter month and year (MM YYYY): \n");
-    //scanf("%d %d", &month, &year);
-    DAY* d = InitialD(12,12,2023);
-
-    int month = GetMonth(d);
-    int year = GetYear(d);
-
-    PrintCalendar(month, year);
-
-    nextMonth(&month,&year);
-    PrintCalendar(month, year);
-    DestroyDay(d);
-    return 0;
-}
+//// test
+//int main() {
+//    //int month, year;
+//    printf("Enter month and year (MM YYYY): \n");
+//    //scanf("%d %d", &month, &year);
+//    DAY* d = InitialD(12,12,2023);
+//
+//    int month = GetMonth(d);
+//    int year = GetYear(d);
+//
+//    PrintCalendar(month, year);
+//
+//    nextMonth(&month,&year);
+//    PrintCalendar(month, year);
+//    DestroyDay(d);
+//    return 0;
+//}

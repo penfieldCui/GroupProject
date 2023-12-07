@@ -1,10 +1,18 @@
-
+//Chris - 7th December
 
 #pragma once
 
-void subMenu();
+#include"appointment.h"
+#include"day.h"
+#include<stdbool.h>
 
-void Menu();
+bool subMenu_edit(APPOINTMENT* a);
+
+void subMenu_appointment_display(DAY* day);
+
+void subMenu_search(DAY* day);
+
+void Menu(DAY* day);
 
 
 
