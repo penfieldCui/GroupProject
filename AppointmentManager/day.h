@@ -8,7 +8,7 @@
 #include <stdbool.h>
 
 
-#define MAXAPPTPERDAY 50
+//#define MAXAPPTPERDAY 50
 
 typedef struct day {
 	PLISTNODE appts;
@@ -26,6 +26,10 @@ void DestroyDay(DAY* d);
 //save
 //bool CopyDay(DAY* dest, DAY* src);
 
+
+//
+bool AddApptToDay(DAY* d, APPOINTMENT appt);
+bool RemoveApptFromDay(DAY* d, APPOINTMENT appt);
 
 // R
 void PrintDay(DAY* d);

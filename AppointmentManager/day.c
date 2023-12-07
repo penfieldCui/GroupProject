@@ -11,15 +11,31 @@ DAY* InitialD(int day, int month, int year) {
 		fprintf(stderr, "error allocating memory for DAY\n");
 		return NULL;
 	}
+	d->appts = NULL;
 	d->day = day;
 	d->month = month;
 	d->year = year;
 	return d;
 }
 
-//void PrintDay(DAY* d) {
-//
-//}
+// list opertaion
+bool AddApptToDay(DAY* d, APPOINTMENT appt) {
+	if (d == NULL) {
+		fprintf(stderr, "NULL pointer: DAY\n");
+		return false;
+	}
+	return Add(&(d->appts), appt);
+}
+
+bool RemoveApptFromDay(DAY* d, APPOINTMENT appt) {
+	return Remove(&(d->appts), appt);
+}
+
+void PrintDay(DAY* d) {
+	printf("%02d/%02d/%d :{\n",GetDay(d), GetMonth(d), GetYear(d));
+	Display(d->appts);
+	printf("}");
+}
 
 //bool CopyDay(DAY* dest, DAY* src) {
 //	return true;
@@ -28,6 +44,11 @@ DAY* InitialD(int day, int month, int year) {
 //bool CompareDay(DAY* a, DAY* b) {
 //
 //	return true;
+//}
+
+//void PrintDay(DAY* d) {
+//	
+//
 //}
 
 int GetDay(DAY* d) {
