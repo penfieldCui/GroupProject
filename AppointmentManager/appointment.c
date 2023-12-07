@@ -1,6 +1,6 @@
 // impl of appointment
-
-
+// program71985 - fall23
+// zongping cui
 #include "appointment.h"
 
 #include <string.h>
@@ -35,7 +35,7 @@ APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, 
 
 
 
-void DestroyAppt(APPOINTMENT a) {
+void DestroyAppt(APPOINTMENT* a) {
 
 }
 
@@ -84,12 +84,12 @@ void PrintAppt(APPOINTMENT appt) {
     //Dec 5   not sure
     strftime(start_time_str, MAXSIZE, "%Y-%m-%d %H:%M", &appt.start_time);
 
-    printf("Appointment ID: %d\n", appt.id);
-    printf("Title: %s\n", appt.title);
-    printf("Start Time: %s\n", start_time_str);
-    printf("Duration: %d minutes\n", appt.duration_minutes);
-    printf("Location: %s\n", appt.location);
-    printf("Description: %s\n", appt.description);
+    printf("Appointment ID: %d  ", appt.id);
+    printf("  Title: %s , \n", appt.title);
+    printf("  -Start Time: %s  ", start_time_str);
+    printf("  Duration: %d minutes, \n", appt.duration_minutes);
+    printf("  -Location: %s\n", appt.location);
+    printf("  -Description: %s\n", appt.description);
 
     char* status_str;
     switch (appt.appointment_status) {
@@ -102,13 +102,13 @@ void PrintAppt(APPOINTMENT appt) {
     case EXPIRED:
         status_str = "Expired";
         break;
-    case CANCELED:
+    case CANCELED: //outdated
         status_str = "Canceled";
         break;
     default :
         status_str = "None";
     }
-    printf("Status: %s\n", status_str);
+    printf("  -Status: %s\n", status_str);
 }
 
 
@@ -174,7 +174,7 @@ void SetApptStatus(APPOINTMENT* appt, STATUS_ENUM status) {
 
 
 
-void DestroyAppointment(APPOINTMENT* appt) {
-    if (appt != NULL)
-        free(appt);
-}
+//void DestroyAppointment(APPOINTMENT* appt) {
+//    if (appt != NULL)
+//        free(appt);
+//}
