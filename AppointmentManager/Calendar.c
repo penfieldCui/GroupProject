@@ -84,7 +84,7 @@ bool nextMonth(int* month, int* year) {
     }   
 }
 
-// test
+
 //int main() {
 //    //int month, year;
 //    printf("Enter month and year (MM YYYY): \n");
@@ -99,6 +99,6 @@ bool nextMonth(int* month, int* year) {
 //    nextMonth(&month,&year);
 //    PrintCalendar(month, year);
 //    DestroyDay(d);
-//
+
 //    return 0;
 //}
