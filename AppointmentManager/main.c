@@ -35,7 +35,7 @@ int main(void) {
 	DestroyDay(d);
 
 
-	Menu();
+	Menu(NULL);
 
 	printf("exit\n");
 	//save

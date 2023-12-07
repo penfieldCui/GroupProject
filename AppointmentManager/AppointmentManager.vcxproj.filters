@@ -33,6 +33,9 @@
     <ClCompile Include="day.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StreamIO.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="menu.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="day.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

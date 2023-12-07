@@ -1,8 +1,8 @@
-
 #include "menu.h"
+#include "StreamIO.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#define MAXMENUREAD	5
+
 
 //fgets
 char selectOption() {
@@ -10,7 +10,7 @@ char selectOption() {
 
 
 	// 11 30
-	if (fgets(letterChoice, MAXMENUREAD, stdin) == NULL) {
+	if (ReadStream(letterChoice, MAXMENUREAD, stdin) == NOTREAD) {
 		letterChoice[0] = '\0';
 	}
 	return letterChoice[0];
@@ -23,6 +23,7 @@ char selectOption() {
 bool subMenu_edit(APPOINTMENT* a) {
 	char choice_edit;
 	do {
+		printf("\n  **** EDIT ****\n\n");
 		printf("a) Start Time\n");
 		printf("b) Duration\n");
 		printf("c) Location\n");
@@ -50,16 +51,19 @@ bool subMenu_edit(APPOINTMENT* a) {
 			//exit
 			break;
 		default:
-			printf("Invalid choice. Please try again\n");
+			printf("!!! WARN: Invalid choice. Please try again.\n");
 		}
 	} while (choice_edit != 'e');
+
+	return true;
 }
 
 //subMenu for display appointment
 void subMenu_appointment_display(DAY* day) {
 	char choice_day;
 	do {
-		printf("a) Appointmnets in a day\n");
+		printf("\n  **** DISPLAY ****\n\n");
+		printf("a) Appointments in a day\n");
 		printf("b) All appointments\n");
 		printf("c) Exit and go back\n");
 
@@ -77,7 +81,7 @@ void subMenu_appointment_display(DAY* day) {
 			//exit
 			break;
 		default:
-			printf("Invalid choice. Please try again\n");
+			printf("!!! WARN: Invalid choice. Please try again.\n");
 		}
 	} while (choice_day != 'c');
 }
@@ -86,6 +90,7 @@ void subMenu_search(DAY* day) {
 	char choice_search;
 	
 	do {
+		printf("\n  **** SEARCH ****\n\n");
 		printf("a) search by title\n");
 		printf("b) search by id\n");
 		printf("c) search by status (expired/not expired)\n");
@@ -113,7 +118,7 @@ void subMenu_search(DAY* day) {
 			//exit
 			break;
 		default:
-			printf("Invalid choice. Please try again.\n");
+			printf("!!! WARN: Invalid choice. Please try again.\n");
 		}
 	} while (choice_search != 'e');
 }
@@ -121,12 +126,13 @@ void subMenu_search(DAY* day) {
 
 // main menu
 void Menu(DAY* day) {
+	printf(" ********************************** \n");
+	printf("**        Welcome to\n");
+	printf("**   AppointmentManger\n\n");
 	char choice;
 	do {
 		//display menu
-		printf(" ********************************** \n"); 
-		printf("**        Welcome to\n"); 
-		printf("**   AppointmentManger\n\n");
+		printf("\n  **** MAIN ****\n\n");
 		//add in do - while loop  --for return NULL
 		printf("a) Add Appointment\n"); 
 		printf("b) Update appointment\n"); 
@@ -166,14 +172,10 @@ void Menu(DAY* day) {
 			//exit
 			break;
 		default:
-			printf("Invalid Input. Please try again.\n ");
+			printf("!!! WARN: Invalid choice. Please try again.\n");
 		}
 	} while (choice != 'g');
 }
-
-//int main(void) {
-//	Menu(NULL);
-//}
 
 //void Menu() {
 //}
