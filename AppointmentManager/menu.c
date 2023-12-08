@@ -161,7 +161,7 @@ void subMenu_search(DAY* day[]) {
 			//search by title 
 			break;
 		case'b':
-			//search by Id
+			//search by Id 
 			break;
 		case'c':
 			//search by status
