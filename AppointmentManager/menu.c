@@ -186,7 +186,7 @@ void Menu(DAY* day[]) {
 		printf("a) Add Appointment\n"); 
 		printf("b) Update appointment\n"); 
 		printf("c) Delete an appointment\n"); 
-		printf("d) Free a day\n"); 
+		printf("d) Empty a day\n"); 
 		printf("e) Display\n"); 
 		printf("f) Search\n"); 
 		printf("g) Exit\n");
