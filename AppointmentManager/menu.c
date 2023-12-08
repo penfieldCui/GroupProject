@@ -3,6 +3,7 @@
 #include "Calendar.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <stdlib.h>
 
 
 
@@ -38,7 +39,9 @@ bool ChooseADay(struct tm* time) {
 			is_formatted = true;
 		}
 		else {
+
 			printf("WARN: error formating %d-%d-%d, please retry\n", day, month, year);//if invalid print an error
+
 		}
 
 	} while (!is_formatted);
@@ -50,14 +53,46 @@ bool ChooseADay(struct tm* time) {
 	return is_formatted;
 }
 
+// 16:28
+// ret true as y or Y
+// false as n or N or not recognize
+bool ChooseYorN() {
+	char choice[MAXMENUREAD];
+	int retry = 0;
+	do {
+		printf("Sure to proceed ?(y/n) \n");
+		if (ReadStream(choice, MAXSIZE, stdin) == NOTREAD)
+			printf("WARN: read failed, please retry\n");
+		else {
+			// convert to time
+			char tmp = choice[0];
+			if (tmp == 'y' || tmp == 'Y') {
+				return true;
+			}
+			else if (tmp == 'n' || tmp == 'N') {
+				return false;
+			}
+		}
+
+		if (++retry > MAXRETRY) {
+			printf("WARN: Retry limit exceeded, go back to previous level\n");
+		}
+
+	} while (retry <= MAXRETRY);
+	return false; // just no
+}
+
 // test 00:44
 //int main(void) {
 //	struct tm* local_time = GetCurrentTime();
-//	ChooseADay(local_time);
-//
+//	//ChooseADay(local_time);
+//	if (ChooseYorN())
+//		printf("yeah!");
+//	else
+//		printf("NOPE");
 //	char date_str[MAXSIZE];
-//	strftime(date_str, MAXSIZE, "\n%Y-%m-%d %H:%M\n", local_time);
-//	printf(date_str);
+//	//strftime(date_str, MAXSIZE, "\n%Y-%m-%d %H:%M\n", local_time);
+//	//printf(date_str);
 //}
 
 
@@ -139,8 +174,10 @@ void subMenu_appointment_display(DAY* day[]) {
 		}
 	} while (choice_day != 'q');
 }
+
 //subMenu for search appointment - 7th December - Chris
-void subMenu_search(DAY* day[]) {
+void subMenu_search(DAY* days[]) {
+
 	char choice_search;
 	
 	do {
@@ -155,13 +192,32 @@ void subMenu_search(DAY* day[]) {
 		printf("Enter your choice: ");
 		/*scanf("%c", &choice_search);*/
 
+
 		//switch cases for search menu
+
+		APPOINTMENT* tmpAppt;
+		char buffer[MAXREAD];
+
 		switch (choice_search = selectOption()) {
 		case'a':
-			//search by title 
+			//search by title
 			break;
 		case'b':
-			//search by Id 
+
+
+
+			//search by Id
+			printf("\n- Enter id of a Appointment: ");
+			ReadStream(buffer, MAXREAD, stdin);
+			int id = atoi(buffer);
+			if (tmpAppt = SearchApptById(days, GetCapacity(), id)) {
+				printf("- Appointment found:\n  ");
+				PrintAppt(*tmpAppt);
+			}
+			else {
+				printf("!Appointment not found.\n");
+			}
+
 			break;
 		case'c':
 			//search by status
@@ -177,6 +233,7 @@ void subMenu_search(DAY* day[]) {
 		}
 	} while (choice_search != 'q');
 }
+
 
 
 // main menu - 7th December - Chris
@@ -203,6 +260,13 @@ void Menu(DAY* day[]) {
 		switch (choice = selectOption()) {
 		case'a':
 			//add appointment function
+			printf("\n");
+			PrintMonths(days,1, *(GetCurrentTime()));
+			if (!InputAndAddAppointmentToDay(days))
+				printf("Add abort\n");
+
+
+
 			break;
 		case'b':
 			//input and display of choosen day
@@ -217,11 +281,11 @@ void Menu(DAY* day[]) {
 			break;
 		case'e':
 			//Display submenu
-			subMenu_appointment_display(day); 
+			subMenu_appointment_display(days);
 			break;
 		case'f':
 			//display menu search
-			subMenu_search(day); 
+			subMenu_search(days);
 			break;
 		case'q':
 			//exit

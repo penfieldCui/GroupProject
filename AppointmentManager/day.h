@@ -37,6 +37,7 @@ void PrintDay(DAY* d);
 
 // judge
 bool CompareDay(DAY* a, DAY b);
+bool CheckConflict_Day(DAY* a, APPOINTMENT newA);
 
 // get 
 int GetDay(DAY* d);

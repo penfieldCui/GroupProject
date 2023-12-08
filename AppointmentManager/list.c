@@ -18,6 +18,21 @@ void Display(PLISTNODE list) {
 	} while (current != NULL);
 }
 
+bool Check(PLISTNODE list, APPOINTMENT i) {
+	
+	PLISTNODE current = list;
+	if (current == NULL) // link empty
+		return false; // no conflict
+	do {
+		if (CheckConflict(current->data, i))
+			return true; // when find a conflict
+		current = current->next;
+	} while (current != NULL);
+
+
+	return false;
+}
+
 bool Add(PLISTNODE* list, APPOINTMENT i) {
 	PLISTNODE newNode = (PLISTNODE)malloc(sizeof(LISTNODE));
 	/***********************************************************************/

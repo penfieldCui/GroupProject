@@ -10,6 +10,9 @@
 
 //return true when they are conflict
 bool CheckConflict(APPOINTMENT a, APPOINTMENT b) {
+    //if (a.id == 0) {
+    //    return false;
+    //}
 	time_t start_a = mktime(&a.start_time);
 	time_t end_a = start_a + a.duration_minutes;
 
@@ -21,13 +24,13 @@ bool CheckConflict(APPOINTMENT a, APPOINTMENT b) {
 
 
 // TODO: generate Id
-APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description, int appointment_status) {
+APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration,  char* description, int appointment_status) {
     APPOINTMENT a;
     a.id = id;  // 8-digit   yyMMddId
     strncpy(a.title, title, MAXSIZE);
     a.start_time = start_time;
     a.duration_minutes = duration;
-    strncpy(a.location, location, MAXSIZE);
+    //strncpy(a.location, location, MAXSIZE);
     strncpy(a.description, description, MAXTEXT);
     a.appointment_status = appointment_status;
     return a;
@@ -51,7 +54,7 @@ bool CopyAppt(APPOINTMENT* dest, APPOINTMENT src) {
     strncpy(dest->title, src.title, MAXSIZE);
     dest->start_time = src.start_time;
     dest->duration_minutes = src.duration_minutes;
-    strncpy(dest->location, src.location, MAXSIZE);
+    //strncpy(dest->location, src.location, MAXSIZE);
     strncpy(dest->description, src.description, MAXTEXT);
     dest->appointment_status = src.appointment_status;
     return true;
@@ -89,7 +92,7 @@ void PrintAppt(APPOINTMENT appt) {
     printf("  Title: %s , \n", appt.title);
     printf("  -Start Time: %s  ", start_time_str);
     printf("  Duration: %d minutes, \n", appt.duration_minutes);
-    printf("  -Location: %s\n", appt.location);
+    //printf("  -Location: %s\n", appt.location);
     printf("  -Description: %s\n", appt.description);
 
     char* status_str;
@@ -149,13 +152,13 @@ void SetApptDuration(APPOINTMENT* appt, int duration_minutes) {
 
 
 
-void GetApptLocation(APPOINTMENT appt, char* location) {
-    strncpy(location, appt.location, MAXSIZE);
-}
-
-void SetApptLocation(APPOINTMENT* appt, char* location) {
-    strncpy(appt->location, location, MAXSIZE);
-}
+//void GetApptLocation(APPOINTMENT appt, char* location) {
+//    strncpy(location, appt.location, MAXSIZE);
+//}
+//
+//void SetApptLocation(APPOINTMENT* appt, char* location) {
+//    strncpy(appt->location, location, MAXSIZE);
+//}
 
 void GetApptDescription(APPOINTMENT appt, char* description) {
     strncpy(description, appt.description, MAXTEXT);
@@ -188,7 +191,7 @@ void saveApptToDisk(APPOINTMENT appt, FILE* fp) {
     fprintf(fp,"title: %s\n", appt.title);
     fprintf(fp,"start Time: %s\n", start_time_str);
     fprintf(fp,"duration: %d minutes\n", appt.duration_minutes);
-    fprintf(fp,"location: %s\n", appt.location);
+    //fprintf(fp,"location: %s\n", appt.location);
     fprintf(fp,"description: %s\n", appt.description);
 
 }
@@ -205,7 +208,7 @@ APPOINTMENT LoadApptFromDisk(FILE* fp) {
     struct tm tm = { 0 }; // use struct tm to represent start time
     int duration_minutes; // duration minutes
 
-    char location[MAXSIZE];
+    //char location[MAXSIZE];
     char description[MAXTEXT];
 
     // id
@@ -231,70 +234,15 @@ APPOINTMENT LoadApptFromDisk(FILE* fp) {
     fgets(line, MAXREAD, fp);
     num = sscanf(line, "duration: %d minutes", &duration_minutes);
     // location
-    fgets(line, MAXREAD, fp);
+    /*fgets(line, MAXREAD, fp);
     if (sscanf(line, "location: %[^\n]", location) != 1)
-        location[0] = '\0';
+        location[0] = '\0';*/
     // description
     fgets(line, MAXREAD, fp);
     if (sscanf(line, "description: %[^\n]", description) != 1)
         description[0] = '\0';
 
-    return CreateAppt(id, title, tm, duration_minutes, location, description, appointment_status);
-        //if (sscanf(line, "appointment ID: %d", &appt.id) == 1)
-        //    continue;
-        //if (sscanf(line, "title: %[^\n]", appt.title) == 1)
-        //    continue;
-        //if (sscanf(line, "start Time: %[^\n]", dateStr) == 1) {
-        //    if (!ParseDate(dateStr, &appt.start_time)) {
-        //        fprintf(stderr, "Invalid date format in file\n");
-        //        fclose(fp);
-        //        return EXIT_FAILURE;
-        //    }
-        //    appt.start_time.tm_year -= 1900; // Adjust year
-        //    appt.start_time.tm_mon -= 1; // Adjust month
-        //    continue;
-        //}
-        //if (sscanf(line, "duration: %d minutes", &appt.duration_minutes) == 1)
-        //    continue;
-        //if (sscanf(line, "location: %[^\n]", appt.location) == 1)
-        //    continue;
-        //if (sscanf(line, "description: %[^\n]", appt.description) == 1)
-        //    continue;
-    //}
-
-
-
-
-    
-    //int id;
-    //char title[MAXSIZE];
-
-    //struct tm tm = { 0 }; // use struct tm to represent start time
-    //char start_time_str[MAXSIZE];
-    //int duration_minutes; // duration minutes
-
-    //char location[MAXSIZE];
-    //char description[MAXTEXT];
-
-    ////id
-    //
-    //int num = fscanf(fp, "appointment ID: %d\n", &id); 
-    //// title
-    //ReadStream(title, MAXSIZE, fp);  
-    //num = sscanf();
-    //// start_time
-    //ReadStream(start_time_str, MAXSIZE, fp);  
-    //num = sscanf(start_time_str, "start Time: %d-%d-%d %d:%d",
-    //    &tm.tm_year, &tm.tm_mon, &tm.tm_mday,
-    //    &tm.tm_hour, &tm.tm_min);
-    ////
-    //num = fscanf(fp, "Appointment ID: %d\n", &id);
-    ////
-    //fprintf(fp, "Title: %s\n", appt.title);
-    //fprintf(fp, "Start Time: %s\n", start_time_str);
-    //fprintf(fp, "Duration: %d minutes\n", appt.duration_minutes);
-    //fprintf(fp, "Location: %s\n", appt.location);
-    //fprintf(fp, "Description: %s\n", appt.description);
+    return CreateAppt(id, title, tm, duration_minutes, description, appointment_status);
 }
 
 

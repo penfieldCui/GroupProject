@@ -15,6 +15,8 @@ typedef struct listNode {
 
 void Display(PLISTNODE list);
 
+bool Check(PLISTNODE* list, APPOINTMENT i);
+
 bool Add(PLISTNODE* list, APPOINTMENT i);
 
 bool Remove(PLISTNODE* list, APPOINTMENT i);

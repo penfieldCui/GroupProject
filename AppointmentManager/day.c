@@ -40,6 +40,13 @@ bool CompareDay(DAY* a, DAY b) {
 	return false;  //they not same
 }
 
+bool CheckConflict_Day(DAY* d, APPOINTMENT appt) {
+	if (d->appts == NULL)
+		return false;
+
+	return Check(&(d->appts), appt);
+}
+
 // list operation
 bool AddApptToDay(DAY* d, APPOINTMENT appt) {
 	if (d == NULL) {
