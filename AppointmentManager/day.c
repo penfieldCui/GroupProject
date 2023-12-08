@@ -29,6 +29,7 @@ DAY* InitialD(int day, int month, int year) {
 //judge
 bool CompareDay(DAY* a, DAY b) {
 	if (a == NULL) {
+		//printf("WARN: Access empty day - NULL pointer: DAY\n");
 		return false;
 	}
 
@@ -42,20 +43,28 @@ bool CompareDay(DAY* a, DAY b) {
 // list operation
 bool AddApptToDay(DAY* d, APPOINTMENT appt) {
 	if (d == NULL) {
-		fprintf(stderr, "NULL pointer: DAY\n");
+		printf("WARN: Access empty day - NULL pointer: DAY\n");
 		return false;
 	}
 	return Add(&(d->appts), appt);
 }
 
 bool RemoveApptFromDay(DAY* d, APPOINTMENT appt) {
+	if (d == NULL) {
+		printf("WARN: Access empty day - NULL pointer: DAY\n");
+		return false;
+	}
 	return Remove(&(d->appts), appt);
 }
 
 void PrintDay(DAY* d) {
-	printf("%02d/%02d/%d :{\n",GetDay(d), GetMonth(d), GetYear(d));
+	if (d == NULL) {
+		printf("WARN: Access empty day - NULL pointer: DAY\n");
+		return;
+	}	
+	printf("\nIn %02d/%02d/%d :{\n",GetDay(d), GetMonth(d), GetYear(d));
 	Display(d->appts);
-	printf("}");
+	printf("}\n\n");
 }
 
 //bool CopyDay(DAY* dest, DAY* src) {
@@ -131,6 +140,59 @@ bool SaveAllDays(DAY* days[], int num, char* filename) {
 
 		SaveListToDisk(days[i]->appts, file);
 	}
+
+	fclose(file);
+	return true;
+}
+
+// load days and put into array
+bool LoadAllDays(DAY* days[], char* filename) {
+
+	FILE* file = fopen(filename, "r");
+	if (file == NULL) {
+		printf("Error opening file.\n");
+		return false;
+	}
+
+	int numOfDays = 0;
+	//int numConverted = fscanf(file, "Num of days: %d", &numOfDays);
+
+	char line[MAXREAD];
+	fgets(line, MAXREAD, file);
+	int numConverted = sscanf(line, "Num of days: %d", &numOfDays);
+
+	for (int i = 0; i < numOfDays; i++) {
+		// if theres a day, initial one
+		fgets(line, MAXREAD, file);
+		int dd, mm, yy;
+		numConverted = sscanf(line, "Date: %d-%d-%d", &dd, &mm, &yy);
+		//numConverted = fscanf(file, "Date: %d-", &dd);
+		//numConverted = fscanf(file, "%d-", &mm);
+		//numConverted = fscanf(file, "%d", &yy);
+		days[i] = InitialD(dd, mm, yy);
+
+		// add appts to day
+		int count;
+		numConverted = fscanf(file, "Num of appts in that day: %d\n", &count);
+
+		for (int j = 0; j < count;j++) {
+			AddApptToDay(days[i], LoadApptFromDisk(file));
+		}
+	}
+
+	/*fprintf(file, "Num of days: %d\n", num);   
+
+	for (int i = 0; i < num;i++) {
+		fprintf(file, "Date: %d-", days[i]->day);
+		fprintf(file, "%d-", days[i]->month);
+		fprintf(file, "%d\n", days[i]->year);
+
+		int count;
+		count = GetCountList(days[i]->appts);
+		fprintf(file, "Num of appts in that day: %d\n", count);
+
+		SaveListToDisk(days[i]->appts, file);
+	}*/
 
 	fclose(file);
 	return true;

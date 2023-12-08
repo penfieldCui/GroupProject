@@ -108,7 +108,7 @@ bool subMenu_edit(APPOINTMENT* a) {
 }
 
 //subMenu for display appointment
-void subMenu_appointment_display(DAY* day) {
+void subMenu_appointment_display(DAY* day[]) {
 	char choice_day;
 	do {
 		printf("\n  **** DISPLAY ****\n\n");
@@ -135,7 +135,7 @@ void subMenu_appointment_display(DAY* day) {
 	} while (choice_day != 'c');
 }
 //subMenu for search appointment
-void subMenu_search(DAY* day) {
+void subMenu_search(DAY* day[]) {
 	char choice_search;
 	
 	do {
@@ -174,7 +174,7 @@ void subMenu_search(DAY* day) {
 
 
 // main menu
-void Menu(DAY* day) {
+void Menu(DAY* day[]) {
 	printf(" ********************************** \n");
 	printf("**        Welcome to\n");
 	printf("**   AppointmentManger\n\n");

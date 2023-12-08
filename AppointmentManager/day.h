@@ -22,16 +22,18 @@ DAY* InitialD(int day,int month,int year);
 void DestroyDay(DAY* d);
 
 //I/O
-//load
+bool LoadAllDays(DAY* d[], char* filename);
 bool SaveAllDays(DAY* d[], int num, char* filename);
 //bool CopyDay(DAY* dest, DAY* src);
 
+/*    useful   */
 // array operate
 bool AddApptToDay(DAY* d, APPOINTMENT appt);
 bool RemoveApptFromDay(DAY* d, APPOINTMENT appt);
 
 // R
 void PrintDay(DAY* d);
+/*    useful   */
 
 // judge
 bool CompareDay(DAY* a, DAY b);

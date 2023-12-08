@@ -2,6 +2,7 @@
 // program71985 - fall23
 // zongping cui
 #include "appointment.h"
+#include "StreamIO.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -20,7 +21,7 @@ bool CheckConflict(APPOINTMENT a, APPOINTMENT b) {
 
 
 // TODO: generate Id
-APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description) {
+APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description, int appointment_status) {
     APPOINTMENT a;
     a.id = id;  // 8-digit   yyMMddId
     strncpy(a.title, title, MAXSIZE);
@@ -28,7 +29,7 @@ APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, 
     a.duration_minutes = duration;
     strncpy(a.location, location, MAXSIZE);
     strncpy(a.description, description, MAXTEXT);
-    a.appointment_status = NONE;
+    a.appointment_status = appointment_status;
     return a;
 }
 
@@ -173,7 +174,7 @@ void SetApptStatus(APPOINTMENT* appt, STATUS_ENUM status) {
 }
 
 
-
+// I/O
 
 void saveApptToDisk(APPOINTMENT appt, FILE* fp) {
     char start_time_str[MAXSIZE];
@@ -181,12 +182,120 @@ void saveApptToDisk(APPOINTMENT appt, FILE* fp) {
     //Dec 5   not sure
     strftime(start_time_str, MAXSIZE, "%Y-%m-%d %H:%M", &appt.start_time);
 
-    fprintf(fp,"Appointment ID: %d\n", appt.id);
-    fprintf(fp,"Title: %s\n", appt.title);
-    fprintf(fp,"Start Time: %s\n", start_time_str);
-    fprintf(fp,"Duration: %d minutes\n", appt.duration_minutes);
-    fprintf(fp,"Location: %s\n", appt.location);
-    fprintf(fp,"Description: %s\n", appt.description);
+    //
+    fprintf(fp,"appointment ID: %d\n", appt.id);
+    fprintf(fp,"appointment_status: %d\n", appt.appointment_status);
+    fprintf(fp,"title: %s\n", appt.title);
+    fprintf(fp,"start Time: %s\n", start_time_str);
+    fprintf(fp,"duration: %d minutes\n", appt.duration_minutes);
+    fprintf(fp,"location: %s\n", appt.location);
+    fprintf(fp,"description: %s\n", appt.description);
+
 }
+
+APPOINTMENT LoadApptFromDisk(FILE* fp) {
+    int num = 0;
+    char line[MAXREAD];
+    
+    // properties
+    int id;
+    int appointment_status = NONE;
+    char title[MAXSIZE];
+
+    struct tm tm = { 0 }; // use struct tm to represent start time
+    int duration_minutes; // duration minutes
+
+    char location[MAXSIZE];
+    char description[MAXTEXT];
+
+    // id
+    fgets(line, MAXREAD, fp);
+    num = sscanf(line, "appointment ID: %d", &id);
+    // appointment_status
+    fgets(line, MAXREAD, fp);
+    num = sscanf(line, "appointment_status: %d", &appointment_status);
+    // title
+    fgets(line, MAXREAD, fp);
+    if (sscanf(line, "title: %[^\n]", title) != 1)
+        title[0] = '\0';
+    // start_time
+    fgets(line, MAXREAD, fp);
+    int dd, mm, yy;
+    num = sscanf(line, "start Time: %d-%d-%d %d:%d",
+            &yy, &mm, &dd,
+            &tm.tm_hour, &tm.tm_min);
+    tm.tm_mday = dd;
+    tm.tm_mon = mm - 1;
+    tm.tm_year = yy - 1900;
+    // duration
+    fgets(line, MAXREAD, fp);
+    num = sscanf(line, "duration: %d minutes", &duration_minutes);
+    // location
+    fgets(line, MAXREAD, fp);
+    if (sscanf(line, "location: %[^\n]", location) != 1)
+        location[0] = '\0';
+    // description
+    fgets(line, MAXREAD, fp);
+    if (sscanf(line, "description: %[^\n]", description) != 1)
+        description[0] = '\0';
+
+    return CreateAppt(id, title, tm, duration_minutes, location, description, appointment_status);
+        //if (sscanf(line, "appointment ID: %d", &appt.id) == 1)
+        //    continue;
+        //if (sscanf(line, "title: %[^\n]", appt.title) == 1)
+        //    continue;
+        //if (sscanf(line, "start Time: %[^\n]", dateStr) == 1) {
+        //    if (!ParseDate(dateStr, &appt.start_time)) {
+        //        fprintf(stderr, "Invalid date format in file\n");
+        //        fclose(fp);
+        //        return EXIT_FAILURE;
+        //    }
+        //    appt.start_time.tm_year -= 1900; // Adjust year
+        //    appt.start_time.tm_mon -= 1; // Adjust month
+        //    continue;
+        //}
+        //if (sscanf(line, "duration: %d minutes", &appt.duration_minutes) == 1)
+        //    continue;
+        //if (sscanf(line, "location: %[^\n]", appt.location) == 1)
+        //    continue;
+        //if (sscanf(line, "description: %[^\n]", appt.description) == 1)
+        //    continue;
+    //}
+
+
+
+
+    
+    //int id;
+    //char title[MAXSIZE];
+
+    //struct tm tm = { 0 }; // use struct tm to represent start time
+    //char start_time_str[MAXSIZE];
+    //int duration_minutes; // duration minutes
+
+    //char location[MAXSIZE];
+    //char description[MAXTEXT];
+
+    ////id
+    //
+    //int num = fscanf(fp, "appointment ID: %d\n", &id); 
+    //// title
+    //ReadStream(title, MAXSIZE, fp);  
+    //num = sscanf();
+    //// start_time
+    //ReadStream(start_time_str, MAXSIZE, fp);  
+    //num = sscanf(start_time_str, "start Time: %d-%d-%d %d:%d",
+    //    &tm.tm_year, &tm.tm_mon, &tm.tm_mday,
+    //    &tm.tm_hour, &tm.tm_min);
+    ////
+    //num = fscanf(fp, "Appointment ID: %d\n", &id);
+    ////
+    //fprintf(fp, "Title: %s\n", appt.title);
+    //fprintf(fp, "Start Time: %s\n", start_time_str);
+    //fprintf(fp, "Duration: %d minutes\n", appt.duration_minutes);
+    //fprintf(fp, "Location: %s\n", appt.location);
+    //fprintf(fp, "Description: %s\n", appt.description);
+}
+
 
 

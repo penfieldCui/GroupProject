@@ -10,8 +10,8 @@
 
 #define MAXSIZE 100
 #define MAXTEXT 255
-#define MAXDATE 11
-#define DATAFILE "data_file.dat"
+#define MAXREAD 270
+//#define MAXDATE 11
 
 typedef enum status_enum {
 	NONE = 0, NOT_EXPIRED = 1, EXPIRED = 2 , CANCELED = 3
@@ -40,26 +40,28 @@ typedef struct appointment {
 
 //C
 
-APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description);
+APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description, int appointment_status);
 void DestroyAppt(APPOINTMENT* a);
 
 
 bool CopyAppt(APPOINTMENT* dest, APPOINTMENT src);
 
-// judge
-
+// JUDGE
 bool CompareAppt(APPOINTMENT a, APPOINTMENT b);
+
+/*    useful   */
 bool CheckConflict(APPOINTMENT a, APPOINTMENT b);
 
-// display
+// DISPLAY
 void PrintAppt(APPOINTMENT appt);
+/*    useful   */
 
 
 // TODO: I/O
 // 
 // load
 // save
-
+APPOINTMENT LoadApptFromDisk(FILE* fp);
 void saveApptToDisk(APPOINTMENT appt, FILE* fp);
 
 

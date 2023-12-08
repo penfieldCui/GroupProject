@@ -23,25 +23,27 @@ static int getNumberOfDays(int month, int year) {
 }
 
 // Zeller's Congruence to find the day of week
-static int getDayOfWeek(int day, int month, int year) {
+static int getDayOfWeek(int month, int year) {
     if (month < 3) {
         month += 12;
         year -= 1;
     }
     int k = year % 100;
     int j = year / 100;
-    int dayOfWeek = (day + 13 * (month + 1) / 5 + k + k / 4 + j / 4 + 5 * j) % 7;
+    int dayOfWeek = (1 + 13 * (month + 1) / 5 + k + k / 4 + j / 4 + 5 * j) % 7;
     return dayOfWeek;
 }
 
 
 // display
 // print the calendar with multiple months
-void PrintMonths(DAY* days[], int num_month, int start_month, int start_year) {
-    int m = start_month;
-    int y = start_year;
+void PrintMonths(DAY* days[], int num_month, struct tm time) {
+    
+    
+    int m = time.tm_mon + 1;
+    int y = time.tm_year + 1900;
     for (int i = 0; i < num_month; i++) {
-        PrintCalendar(days, m , y);
+        PrintCalendar(days, m , y, time);
         if (++m > 12) {
             m = 1;
             y++;
@@ -50,14 +52,16 @@ void PrintMonths(DAY* days[], int num_month, int start_month, int start_year) {
 }
 
 // print the calendar
-void PrintCalendar(DAY* days[],int month, int year) {
+void PrintCalendar(DAY* days[],int month, int year, struct tm local_time) {
     //strptime();
 
     printf("Calendar for %02d/%d\n", month, year);
     printf("Sun Mon Tue Wed Thu Fri Sat\n");
 
+    DAY today = CreateEmptyD(local_time.tm_mday, local_time.tm_mon+1, local_time.tm_year+1900);
+
     int num_day = getNumberOfDays(month, year);
-    int startDay = getDayOfWeek(1, month, year);
+    int startDay = getDayOfWeek(month, year);
 
     // adjusting output
     startDay = (startDay + 5) % 7;
@@ -72,8 +76,20 @@ void PrintCalendar(DAY* days[],int month, int year) {
         time.tm_mday = i;
         time.tm_mon = month - 1;
         time.tm_year = year - 1900;
+
+        //
         if (SearchDayInArray(days, GetCapacity(), time)!= -1)
-            printf("\033[1;34m"); // Set text color to blue
+            if (i == GetDay(&today) && month == GetMonth(&today)) {
+                printf("\033[31m"); // RED : today with appt
+            }
+            else
+                printf("\033[1;34m"); // BLUE day with appt
+       
+
+        if (i == GetDay(&today) && month == GetMonth(&today)) 
+            if (SearchDayInArray(days, GetCapacity(), time) == -1)
+                printf("\033[32m"); // GREEN:  today with no appt to green
+            
         
 
         printf("%3d ", i);
