@@ -19,8 +19,8 @@ Date: 29-1-2024
 Num of appts in that day: 0
 Date: 1-12-2023
 Num of appts in that day: 3
-appointment ID: 23120701
-appointment_status: 1
+appointment ID: 23120703
+appointment_status: 3
 title: idk
 start Time: 2023-12-08 14:18
 duration: 30 minutes
@@ -33,8 +33,8 @@ start Time: 2023-12-08 14:18
 duration: 30 minutes
 location: 
 description: 
-appointment ID: 23120703
-appointment_status: 3
+appointment ID: 23120701
+appointment_status: 1
 title: idk
 start Time: 2023-12-08 14:18
 duration: 30 minutes

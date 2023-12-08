@@ -69,7 +69,7 @@ int main(void) {
 	/*     23:16   */
 
 	/****    run menu   ****/
-	//Menu(days);
+	Menu(days);
 
 
 

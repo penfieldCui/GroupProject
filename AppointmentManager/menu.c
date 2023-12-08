@@ -77,7 +77,7 @@ bool subMenu_edit(APPOINTMENT* a) {
 		printf("b) Duration\n");
 		printf("c) Location\n");
 		printf("d) Description\n");
-		printf("e) Go back\n");
+		printf("q) Go back\n");
 
 		printf("Enter your choice: ");
 		
@@ -96,13 +96,13 @@ bool subMenu_edit(APPOINTMENT* a) {
 		case'd':
 			//description
 			break;
-		case'e':
+		case'q':
 			//exit
 			break;
 		default:
 			printf("!!! WARN: Invalid choice. Please try again.\n");
 		}
-	} while (choice_edit != 'e');
+	} while (choice_edit != 'q');
 
 	return true;
 }
@@ -114,7 +114,7 @@ void subMenu_appointment_display(DAY* day[]) {
 		printf("\n  **** DISPLAY ****\n\n");
 		printf("a) Appointments in a day\n");
 		printf("b) All appointments\n");
-		printf("c) Exit and go back\n");
+		printf("q) Exit and go back\n");
 
 		printf("Enter your choice: ");
 		
@@ -126,13 +126,13 @@ void subMenu_appointment_display(DAY* day[]) {
 		case'b':
 			//list of all appointments
 			break;
-		case'c':
+		case'q':
 			//exit
 			break;
 		default:
 			printf("!!! WARN: Invalid choice. Please try again.\n");
 		}
-	} while (choice_day != 'c');
+	} while (choice_day != 'q');
 }
 //subMenu for search appointment
 void subMenu_search(DAY* day[]) {
@@ -144,7 +144,7 @@ void subMenu_search(DAY* day[]) {
 		printf("b) search by id\n");
 		printf("c) search by status (expired/not expired)\n");
 		printf("d) search by time\n");
-		printf("e) Go back\n");
+		printf("q) Go back\n");
 
 		printf("Enter your choice: ");
 		/*scanf("%c", &choice_search);*/
@@ -163,13 +163,13 @@ void subMenu_search(DAY* day[]) {
 		case'd':
 			//search by time
 			break;
-		case'e':
+		case'q':
 			//exit
 			break;
 		default:
 			printf("!!! WARN: Invalid choice. Please try again.\n");
 		}
-	} while (choice_search != 'e');
+	} while (choice_search != 'q');
 }
 
 
@@ -189,7 +189,7 @@ void Menu(DAY* day[]) {
 		printf("d) Empty a day\n"); 
 		printf("e) Display\n"); 
 		printf("f) Search\n"); 
-		printf("g) Exit\n");
+		printf("q) Exit\n");
 
 		printf("Enter your Choice: ");
 		/*scanf("%c", &choice);*/
@@ -217,13 +217,13 @@ void Menu(DAY* day[]) {
 			//display menu search
 			subMenu_search(day); 
 			break;
-		case'g':
+		case'q':
 			//exit
 			break;
 		default:
 			printf("!!! WARN: Invalid choice. Please try again.\n");
 		}
-	} while (choice != 'g');
+	} while (choice != 'q');
 }
 
 //void Menu() {

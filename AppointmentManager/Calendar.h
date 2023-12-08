@@ -14,6 +14,11 @@ bool IsValidDate(int day, int month, int year);
 
 /*    useful   */
 // SEARCH   
+// by Chris
+// not 0 -  num of day found in days
+// -1 no day found
+// int SearchARangeOfDayInArrayByDate(DAY* days[], DAY* selected_days[], int capacity, struct start_tm, struct end_tm);
+// 
 // return index of day in days
 //			return - 1 : not found
 int SearchDayInArrayByDate(DAY* days[], int capacity, struct tm);
