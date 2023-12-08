@@ -17,6 +17,7 @@ typedef struct day {
 	int year;
 }DAY;
 
+DAY CreateEmptyD(int day, int month, int year);
 //DMA
 DAY* InitialD(int day,int month,int year);
 void DestroyDay(DAY* d);
@@ -35,7 +36,7 @@ bool RemoveApptFromDay(DAY* d, APPOINTMENT appt);
 void PrintDay(DAY* d);
 
 // judge
-//bool CompareDay(DAY* a, DAY* b);
+bool CompareDay(DAY* a, DAY b);
 
 
 // get 

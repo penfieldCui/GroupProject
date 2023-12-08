@@ -80,11 +80,11 @@ void SetApptDuration(APPOINTMENT* appt, int duration_minutes);
 
 void GetApptLocation(APPOINTMENT appt, char* location);
 
-void SetApptLocation(APPOINTMENT* appt, const char* location);
+void SetApptLocation(APPOINTMENT* appt, char* location);
 
 void GetApptDescription(APPOINTMENT appt, char* description);
 
-void SetApptDescription(APPOINTMENT* appt, const char* description);
+void SetApptDescription(APPOINTMENT* appt, char* description);
 
 STATUS_ENUM GetApptStatus(APPOINTMENT appt);
 

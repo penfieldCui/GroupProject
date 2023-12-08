@@ -4,6 +4,14 @@
 #include "day.h"
 #include <stdlib.h>
 
+DAY CreateEmptyD(int day, int month, int year) {
+	DAY d;
+	d.appts = NULL;
+	d.day = day;
+	d.month = month;
+	d.year = year;
+	return d;
+}
 
 DAY* InitialD(int day, int month, int year) {
 	DAY* d = (DAY*)malloc(sizeof(DAY));
@@ -18,7 +26,20 @@ DAY* InitialD(int day, int month, int year) {
 	return d;
 }
 
-// list opertaion
+//judge
+bool CompareDay(DAY* a, DAY b) {
+	if (a == NULL) {
+		return false;
+	}
+
+	if (a->day == b.day && a->month == b.month && a->year == b.year) {
+		return true; // same day
+	}
+
+	return false;  //they not same
+}
+
+// list operation
 bool AddApptToDay(DAY* d, APPOINTMENT appt) {
 	if (d == NULL) {
 		fprintf(stderr, "NULL pointer: DAY\n");

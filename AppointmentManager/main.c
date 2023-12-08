@@ -1,9 +1,15 @@
 #include "menu.h"
-
+#include "Calendar.h"
 #include <stdio.h>
 
-//not yet DEC 5th
 
+#define DAYLIMIT 100  //don't care about appointment more than 3 months
+
+
+
+
+
+//int test(void) {
 int main(void) {
 	//load
 	printf("start\n");
@@ -12,30 +18,43 @@ int main(void) {
 	time(&current_time);
 
 	// Convert to local time format
-	struct tm* local_time = localtime(&current_time);
+	struct tm* local_time = localtime(&current_time); // to expired some appointments when load
 
-	DAY* d = InitialD(30,12,2023);
+
+	DAY* days[DAYLIMIT] = {NULL};
+
+	days[0] = InitialD(30, 12, 2023);
+
+	days[1] = InitialD(31, 12, 2023);
+	days[2] = InitialD(2, 12, 2023);
+	days[3] = InitialD(7, 12, 2023);
+	days[4] = InitialD(3, 11, 2023);
+	days[5] = InitialD(6, 1, 2023);
+
+	int num = GetNumOfDays(days, DAYLIMIT);
+	
 	APPOINTMENT a = CreateAppt(30122301, "idk\0", *local_time, 30, "\0", "\0");
 
-	
+	int index = SearchDayInArray(days, DAYLIMIT, *local_time);
 
-	AddApptToDay(d, a);
-	AddApptToDay(d, a);
-	AddApptToDay(d, a);
 
-	AddApptToDay(d, a);
+	AddApptToDay(days[0], a);
+	AddApptToDay(days[0], a);
+	AddApptToDay(days[0], a);
 
-	PrintDay(d);
+	AddApptToDay(days[0], a);
+
+	PrintDay(days[0]);
 	printf("--");
 
-	RemoveApptFromDay(d, a);
-	RemoveApptFromDay(d, a);
-	RemoveApptFromDay(d, a);
-	PrintDay(d);
-	DestroyDay(d);
+	RemoveApptFromDay(days[0], a);
+	RemoveApptFromDay(days[0], a);
+	RemoveApptFromDay(days[0], a);
+	PrintDay(days[0]);
+	DestroyDay(days[0]);
 
 
-	Menu(NULL);
+	//Menu(days);
 
 	printf("exit\n");
 	//save

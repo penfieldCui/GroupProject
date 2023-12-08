@@ -62,6 +62,7 @@ bool Remove(PLISTNODE* list, APPOINTMENT i) {
 	if (current == NULL)  // not found
 		return false;
 	
+	
 	prev->next = current->next;
 	
 	/*do {

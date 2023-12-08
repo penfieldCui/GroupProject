@@ -22,7 +22,7 @@ bool CheckConflict(APPOINTMENT a, APPOINTMENT b) {
 // TODO: generate Id
 APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description) {
     APPOINTMENT a;
-    a.id = id;  // 8-digit   yyMMddxx
+    a.id = id;  // 8-digit   yyMMddId
     strncpy(a.title, title, MAXSIZE);
     a.start_time = start_time;
     a.duration_minutes = duration;

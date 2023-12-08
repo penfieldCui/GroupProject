@@ -220,7 +220,7 @@ void Menu(DAY* day) {
 //			break;
 //		}
 //
-//	} while (ture);
+//	} while (1);
 //
 //}
 
