@@ -39,8 +39,10 @@ typedef struct appointment {
 
 
 //C
+
 APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description);
 void DestroyAppt(APPOINTMENT* a);
+
 
 bool CopyAppt(APPOINTMENT* dest, APPOINTMENT src);
 
@@ -62,11 +64,11 @@ void saveApptToDisk(APPOINTMENT appt, FILE* fp);
 
 
 // get set
-int GetAppId(APPOINTMENT appt);
+int GetApptId(APPOINTMENT appt);
 
-void SetAppId(APPOINTMENT* appt, int id);
+//void SetApptId(APPOINTMENT* appt, int id);
 
-void GetAppTitle(APPOINTMENT appt, char* title);
+void GetApptTitle(APPOINTMENT appt, char* title);
 
 void SetApptTitle(APPOINTMENT* appt, char* title);
 

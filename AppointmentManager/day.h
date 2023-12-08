@@ -7,6 +7,8 @@
 #include "appointment.h"
 #include <stdbool.h>
 
+// TODO: capacity of appt
+#define APPTNUMLIMIT 50
 typedef struct day {
 	PLISTNODE appts;
 	int day;

@@ -73,6 +73,22 @@ bool Remove(PLISTNODE* list, APPOINTMENT i) {
 	return true;
 }
 
+// SEARCH
+// if uid match, return true
+PLISTNODE SearchApptInListById(PLISTNODE list, int id) {
+	PLISTNODE current = list;
+
+	while (current != NULL) {
+		
+		if (GetApptId(current->data)== id) // uid match
+			return current;  // 
+
+		current = current->next;
+	}
+
+	return (PLISTNODE)NULL;
+}
+
 int GetCountList(PLISTNODE list) {
 	int count = 0;
 	PLISTNODE current = list;
@@ -83,19 +99,6 @@ int GetCountList(PLISTNODE list) {
 	return count;
 }
 
-//PLISTNODE Search(PLISTNODE list, APPOINTMENT i){
-//	PLISTNODE current = list;
-//
-//	while (current != NULL) {
-//		if (CompareItems(current->data, i))
-//			return current;  // 
-//
-//		current = current->next;
-//	}
-//	
-//	return (PLISTNODE)NULL;
-//}
-//
 //PLISTNODE SearchR(PLISTNODE list, APPOINTMENT i) {
 //	PLISTNODE current = list;
 //

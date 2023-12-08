@@ -113,15 +113,16 @@ void PrintAppt(APPOINTMENT appt) {
 
 
 // get set
-int GetAppId(APPOINTMENT appt) {
+int GetApptId(APPOINTMENT appt) {
     return appt.id;
 }
 
-void SetAppId(APPOINTMENT* appt, int id) {
-    appt->id = id;
-}
+//edit uid not allowed
+//void SetApptId(APPOINTMENT* appt, int id) {
+//    appt->id = id;
+//} 
 
-void GetAppTitle(APPOINTMENT appt, char* title) {
+void GetApptTitle(APPOINTMENT appt, char* title) {
     strncpy(title, appt.title, MAXSIZE);
 }
 

@@ -47,14 +47,15 @@ bool ChooseADay(struct tm* time) {
 	return is_formatted;
 }
 
-int main(void) {
-	struct tm* local_time = GetCurrentTime();
-	ChooseADay(local_time);
-
-	char date_str[MAXSIZE];
-	strftime(date_str, MAXSIZE, "\n%Y-%m-%d %H:%M\n", local_time);
-	printf(date_str);
-}
+// test 00:44
+//int main(void) {
+//	struct tm* local_time = GetCurrentTime();
+//	ChooseADay(local_time);
+//
+//	char date_str[MAXSIZE];
+//	strftime(date_str, MAXSIZE, "\n%Y-%m-%d %H:%M\n", local_time);
+//	printf(date_str);
+//}
 
 
 //fgets

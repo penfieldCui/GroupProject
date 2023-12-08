@@ -22,6 +22,10 @@ bool Remove(PLISTNODE* list, APPOINTMENT i);
 //PLISTNODE Search(PLISTNODE list, APPOINTMENT i);
 
 //PLISTNODE SearchR(PLISTNODE list, APPOINTMENT i);
+
+// SEARCH
+PLISTNODE SearchApptInListById(PLISTNODE list, int id);
+
 int GetCountList(PLISTNODE list);
 
 void DestroyList(PLISTNODE* list);

@@ -72,7 +72,7 @@ void PrintCalendar(DAY* days[],int month, int year) {
         time.tm_mday = i;
         time.tm_mon = month - 1;
         time.tm_year = year - 1900;
-        if (-1 != SearchDayInArray(days, GetCapacity(), time))
+        if (SearchDayInArray(days, GetCapacity(), time)!= -1)
             printf("\033[1;34m"); // Set text color to blue
         
 
@@ -154,6 +154,43 @@ int SearchDayInArray(DAY* days[], int capacity, struct tm time) {
     }
     
     return -1;
+}
+
+APPOINTMENT* SearchApptById(DAY* days[], int capacity, int id) {
+    for (int i = 0; i < capacity; i++) {
+        if (days[i] != NULL) {
+            PLISTNODE tmpAppt = SearchApptInListById(days[i]->appts, id);
+            if (tmpAppt != NULL) {
+                return &(tmpAppt->data);
+            }
+        }
+        
+    }
+    return NULL;
+}
+
+// use time to generate uid
+int GenerateUidOfAppt(DAY* days[], int capacity, struct tm time) {
+
+    int y = time.tm_year % 100; //  maybe 200 is slightly better in some case
+    int m = time.tm_mon + 1;
+    int d = time.tm_mday;
+
+    int tmp_id = y * 1000000 + m * 10000 + d * 100 + 1;
+
+    int count = 0;
+    // TODO: increase efficiency maybe?
+    while (SearchApptById(days, capacity, tmp_id) != NULL && count < APPTNUMLIMIT) {//100 most
+        tmp_id++;
+        count++;
+    }
+
+    if (count == APPTNUMLIMIT) {
+        printf("Daily appointment limit reached, pleas arrange to another day. \n");
+        return -1;
+    }
+
+    return tmp_id;
 }
 
 // DMA
