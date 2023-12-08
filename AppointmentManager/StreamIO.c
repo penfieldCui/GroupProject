@@ -8,9 +8,9 @@
 
 
 // read part of stream and store value to buffer
-// return int:  1 finish reading a line
-//				2 buffer full but line not end
-//				0 not read
+// return int:  1 LINEFINISH finish reading a line,
+//				2 LINENOTEND buffer full but line not end,
+//				0 NOTREAD not read
 int ReadStream(char* buffer, int arr_size, FILE* fp) {
 
 

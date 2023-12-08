@@ -7,9 +7,6 @@
 #include "appointment.h"
 #include <stdbool.h>
 
-
-//#define MAXAPPTPERDAY 50
-
 typedef struct day {
 	PLISTNODE appts;
 	int day;
@@ -24,21 +21,18 @@ void DestroyDay(DAY* d);
 
 //I/O
 //load
-//save
+bool SaveAllDays(DAY* d[], int num, char* filename);
 //bool CopyDay(DAY* dest, DAY* src);
 
-
-//
+// array operate
 bool AddApptToDay(DAY* d, APPOINTMENT appt);
 bool RemoveApptFromDay(DAY* d, APPOINTMENT appt);
-
 
 // R
 void PrintDay(DAY* d);
 
 // judge
 bool CompareDay(DAY* a, DAY b);
-
 
 // get 
 int GetDay(DAY* d);
@@ -50,4 +44,3 @@ int GetYear(DAY* d);
 //bool SetMonth(DAY* d, int);
 //bool SetYear(DAY* d, int);
 
-bool saveDaysToDisk(DAY* d[], int num, char* filename);

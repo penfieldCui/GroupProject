@@ -11,7 +11,6 @@
 #define MAXSIZE 100
 #define MAXTEXT 255
 #define MAXDATE 11
-#define MAXTIME 6
 #define DATAFILE "data_file.dat"
 
 typedef enum status_enum {

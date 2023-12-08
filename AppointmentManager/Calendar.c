@@ -8,7 +8,7 @@
 
 
 // return the number of days in a given month
-int getNumberOfDays(int month, int year) {
+static int getNumberOfDays(int month, int year) {
     switch (month) {
     case 4: case 6: case 9: case 11:
         return 30;
@@ -23,7 +23,7 @@ int getNumberOfDays(int month, int year) {
 }
 
 // Zeller's Congruence to find the day of week
-int getDayOfWeek(int day, int month, int year) {
+static int getDayOfWeek(int day, int month, int year) {
     if (month < 3) {
         month += 12;
         year -= 1;
@@ -34,14 +34,29 @@ int getDayOfWeek(int day, int month, int year) {
     return dayOfWeek;
 }
 
+
+// display
+// print the calendar with multiple months
+void PrintMonths(DAY* days[], int num_month, int start_month, int start_year) {
+    int m = start_month;
+    int y = start_year;
+    for (int i = 0; i < num_month; i++) {
+        PrintCalendar(days, m , y);
+        if (++m > 12) {
+            m = 1;
+            y++;
+        }
+    }
+}
+
 // print the calendar
-void PrintCalendar(int month, int year) {
+void PrintCalendar(DAY* days[],int month, int year) {
     //strptime();
 
     printf("Calendar for %02d/%d\n", month, year);
     printf("Sun Mon Tue Wed Thu Fri Sat\n");
 
-    int days = getNumberOfDays(month, year);
+    int num_day = getNumberOfDays(month, year);
     int startDay = getDayOfWeek(1, month, year);
 
     // adjusting output
@@ -52,48 +67,46 @@ void PrintCalendar(int month, int year) {
     }
 
     // print the days
-    for (int i = 1; i <= days; i++) {
-
-        // if the day has appointment
-        if ((i + startDay - 1) % 7 == 0 || (i + startDay - 1) % 7 == 6) {
-            printf("\033[0m"); // Set text color to red
-        }
-
-        //if (i == days) 
-        //    printf("\033[0m\n");
+    for (int i = 1; i <= num_day; i++) {
+        struct tm time;
+        time.tm_mday = i;
+        time.tm_mon = month - 1;
+        time.tm_year = year - 1900;
+        if (-1 != SearchDayInArray(days, GetCapacity(), time))
+            printf("\033[1;34m"); // Set text color to blue
+        
 
         printf("%3d ", i);
 
-        if ((i + startDay) % 7 == 0) { //end of week
-            printf("\n"); 
+        if ((i + startDay) % 7 == 0) {
+            printf("\033[0m\n"); // Reset text color to default
         }
-        //else if (i == days) {
-        //    printf("\033[0m\n"); // Reset text color to default
-        //}
-        //else {
-        //    printf("\033[0m"); // Reset text color to default
-        //}
+        else if (i == num_day) {
+            printf("\033[0m\n"); // Reset text color to default
+        }
+        else {
+            printf("\033[0m"); // Reset text color to default
+        }
     }
     printf("\n");
 }
 
-bool nextMonth(int* month, int* year) {
-    if (*month == 12) {
-        *month = 1;
-        *year += 1;
-    }
-    else {
-        *month += 1;
-    }   
-    return true;
+
+// R
+struct tm* GetCurrentTime() {
+    time_t current_time;
+    time(&current_time);
+
+    // Convert to local time format
+    return localtime(&current_time); // to expired some appointments when load
 }
 
-
-
+int GetCapacity() {
+    return DAYLIMIT;
+}
 
 int GetNumOfDays(DAY* days[], int capacity) {
     
-
     int num = 0;
     for (int i = 0; i < capacity; i++) {
         if (days[i] != NULL)
@@ -102,7 +115,38 @@ int GetNumOfDays(DAY* days[], int capacity) {
     return num;
 }
 
-int SearchDayInArray(DAY** days, int capacity, struct tm time) {
+
+
+// Judge
+// check input date
+bool IsValidDate(int day, int month, int year){
+    // Check if the year, month, and day are within the expected range
+    if (year < 0 || month < 1 || month > 12 || day < 1 || day > 31) {
+        return false;
+    }
+
+    //int maxMDay = getNumberOfDays(month, year);
+    return day <= getNumberOfDays(month, year);
+    //if (month == 2) {
+    //    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) { // Leap year
+    //        return day <= 29;
+    //    }
+    //    else {
+    //        return day <= 28;
+    //    }
+    //}
+
+    //// April, June, September, and November have 30 days
+    //if (month == 4 || month == 6 || month == 9 || month == 11) {
+    //    return day <= 30;
+    //}
+
+    // Other months have 31 days, already checked at the start
+    //return true;
+}
+
+// SEARCH
+int SearchDayInArray(DAY* days[], int capacity, struct tm time) {
     DAY inputD = CreateEmptyD(time.tm_mday, time.tm_mon+1, time.tm_year + 1900);
     for (int i = 0; i < capacity; i++) {
         if(CompareDay(days[i], inputD))
@@ -112,21 +156,14 @@ int SearchDayInArray(DAY** days, int capacity, struct tm time) {
     return -1;
 }
 
+// DMA
+void DestroyAllDay(DAY* days[]) {
+    int capacity = GetCapacity();
+    for (int i = 0; i < capacity; i++) {
+        if (days[i] != NULL){
+            DestroyDay(days[i]);
+            days[i] = NULL; //reset to NULL;
+        }
+    }
+}
 
-//int main() {
-//    //int month, year;
-//    printf("Enter month and year (MM YYYY): \n");
-//    //scanf("%d %d", &month, &year);
-//    DAY* d = InitialD(12,12,2023);
-//
-//    int month = GetMonth(d);
-//    int year = GetYear(d);
-//
-//    PrintCalendar(month, year);
-//
-//    nextMonth(&month,&year);
-//    PrintCalendar(month, year);
-//    DestroyDay(d);
-
-//    return 0;
-//}

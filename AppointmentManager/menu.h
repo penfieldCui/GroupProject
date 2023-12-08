@@ -1,7 +1,3 @@
-
-#include "day.h"
-
-
 #pragma once
 
 #include"appointment.h"
@@ -11,6 +7,8 @@
 
 
 #define MAXMENUREAD	5
+
+bool ChooseADay(struct tm* time);
 
 bool subMenu_edit(APPOINTMENT* a);
 

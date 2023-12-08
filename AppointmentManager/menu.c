@@ -1,23 +1,71 @@
 #include "menu.h"
 #include "StreamIO.h"
+#include "Calendar.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+
+
+
+//
+bool ChooseADay(struct tm* time) {
+	char date_str[MAXSIZE];
+	bool is_valid = false;
+	bool is_formatted = false;
+	int day = -1, month = -1, year = -1;
+	do {
+		printf("please enter a date in format dd-MM-yyyy or dd-MM: \n");
+		if (ReadStream(date_str, MAXSIZE, stdin) == NOTREAD)
+			printf("WARN: read failed, please retry\n");
+		else {
+			// convert to time
+			if (sscanf(date_str, "%d-%d-%d", &day, &month, &year) == 3) {
+				is_valid = IsValidDate(day, month, year);
+			}
+			else if (sscanf(date_str, "%d-%d", &day, &month) == 2) {
+				struct tm* local_time = GetCurrentTime();
+				year = local_time->tm_year + 1900;
+				is_valid = IsValidDate(day, month, year);
+			}
+		}
+
+		if (is_valid) {
+			time->tm_mday = day;
+			time->tm_mon = month - 1;
+			time->tm_year = year - 1900;
+			is_formatted = true;
+		}
+		else {
+			printf("WARN: error formating %d-%d-%d, please retry\n", day, month, year);
+		}
+
+	} while (!is_formatted);
+
+	//strftime(date_str, MAXSIZE, "\n%Y-%m-%d %H:%M\n", time);
+	//printf(date_str);
+
+
+	return is_formatted;
+}
+
+int main(void) {
+	struct tm* local_time = GetCurrentTime();
+	ChooseADay(local_time);
+
+	char date_str[MAXSIZE];
+	strftime(date_str, MAXSIZE, "\n%Y-%m-%d %H:%M\n", local_time);
+	printf(date_str);
+}
 
 
 //fgets
 char selectOption() {
 	char letterChoice[MAXMENUREAD];
-
-
 	// 11 30
 	if (ReadStream(letterChoice, MAXMENUREAD, stdin) == NOTREAD) {
 		letterChoice[0] = '\0';
 	}
 	return letterChoice[0];
 }
-
-
-
 
 //subMenu for update appointment
 bool subMenu_edit(APPOINTMENT* a) {

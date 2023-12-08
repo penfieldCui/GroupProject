@@ -86,10 +86,9 @@ int GetYear(DAY* d) {
 
 void DestroyDay(DAY* d) {
 	if (d != NULL) {
-
-
+		// clean the list
 		DestroyList(&(d->appts));
-
+		// free day
 		free(d);
 	}
 		
@@ -111,7 +110,7 @@ void DestroyDay(DAY* d) {
 
 
 
-bool saveDaysToDisk(DAY* days[], int num, char* filename) {
+bool SaveAllDays(DAY* days[], int num, char* filename) {
 	
 	FILE* file = fopen(filename, "w");
 	if (file == NULL) {
