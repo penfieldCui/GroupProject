@@ -78,7 +78,7 @@ void PrintCalendar(DAY* days[],int month, int year, struct tm local_time) {
         time.tm_year = year - 1900;
 
         //
-        if (SearchDayInArray(days, GetCapacity(), time)!= -1)
+        if (SearchDayInArrayByDate(days, GetCapacity(), time)!= -1)
             if (i == GetDay(&today) && month == GetMonth(&today)) {
                 printf("\033[31m"); // RED : today with appt
             }
@@ -87,7 +87,7 @@ void PrintCalendar(DAY* days[],int month, int year, struct tm local_time) {
        
 
         if (i == GetDay(&today) && month == GetMonth(&today)) 
-            if (SearchDayInArray(days, GetCapacity(), time) == -1)
+            if (SearchDayInArrayByDate(days, GetCapacity(), time) == -1)
                 printf("\033[32m"); // GREEN:  today with no appt to green
             
         
@@ -162,7 +162,7 @@ bool IsValidDate(int day, int month, int year){
 }
 
 // SEARCH
-int SearchDayInArray(DAY* days[], int capacity, struct tm time) {
+int SearchDayInArrayByDate(DAY* days[], int capacity, struct tm time) {
     DAY inputD = CreateEmptyD(time.tm_mday, time.tm_mon+1, time.tm_year + 1900);
     for (int i = 0; i < capacity; i++) {
         if(CompareDay(days[i], inputD))

@@ -16,7 +16,7 @@ bool IsValidDate(int day, int month, int year);
 // SEARCH   
 // return index of day in days
 //			return - 1 : not found
-int SearchDayInArray(DAY* days[], int capacity, struct tm);
+int SearchDayInArrayByDate(DAY* days[], int capacity, struct tm);
 
 // return appt match same id
 APPOINTMENT* SearchApptById(DAY* days[], int capacity, int id);

@@ -50,7 +50,7 @@ int main(void) {
 	LoadAllDays(days, SAVEFILE);
 	int numOfDay = GetNumOfDays(days, DAYLIMIT);
 	
-	//int index = SearchDayInArray(days, DAYLIMIT, *local_time);
+	//int index = SearchDayInArrayByDate(days, DAYLIMIT, *local_time);
 	//->tm_mon + 1, local_time->tm_year + 1900
 	PrintMonths(days, NUMMONTHDISPLAY, *local_time);
 
