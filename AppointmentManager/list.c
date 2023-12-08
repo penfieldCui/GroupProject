@@ -112,3 +112,12 @@ void DestroyList(PLISTNODE* list) {
 	}
 	*list = NULL;  //its better
 }
+
+bool SaveListToDisk(PLISTNODE list, FILE* fp) {
+	PLISTNODE current = list;
+	while (current != NULL) {
+		SaveAppt(current->data, fp);
+		current = current->next;
+	}
+	return true;
+}

@@ -178,3 +178,18 @@ void DestroyAppointment(APPOINTMENT* appt) {
     if (appt != NULL)
         free(appt);
 }
+
+void saveApptToDisk(APPOINTMENT appt, FILE* fp) {
+    char start_time_str[MAXSIZE];
+
+    //Dec 5   not sure
+    strftime(start_time_str, MAXSIZE, "%Y-%m-%d %H:%M", &appt.start_time);
+
+    fprintf(fp,"Appointment ID: %d\n", appt.id);
+    fprintf(fp,"Title: %s\n", appt.title);
+    fprintf(fp,"Start Time: %s\n", start_time_str);
+    fprintf(fp,"Duration: %d minutes\n", appt.duration_minutes);
+    fprintf(fp,"Location: %s\n", appt.location);
+    fprintf(fp,"Description: %s\n", appt.description);
+}
+

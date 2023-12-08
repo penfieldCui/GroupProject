@@ -66,3 +66,27 @@ void DestroyDay(DAY* d) {
 //bool SetMonth(DAY* d, int);
 //
 //bool SetYear(DAY* d, int);
+
+bool saveDayToDisk(DAY* d, char* filename) {
+	
+	FILE* file = fopen(filename, "w");
+	if (file == NULL) {
+		printf("Error opening file.\n");
+		return false;
+	}
+		fprintf(file, "%d\n", d->day);
+		fprintf(file, "%d\n", d->month);
+		fprintf(file, "%d\n", d->year);
+		
+
+	fclose(file);
+	return true;
+}
+
+int main(void) {
+	DAY* d = InitialD(10,5,2023);
+	saveDayToDisk(d,"data_file.dat");
+	
+
+	return 0;
+}
