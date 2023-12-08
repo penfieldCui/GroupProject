@@ -7,6 +7,11 @@
 #include <stdio.h>
 
 
+//8th December - Chris
+//int SearchARangeOfDayInArrayByDate(DAY* days[], DAY* selected_days[], int capacity, struct tm start_tm, struct tm end_tm) {
+//    for () 
+//}
+
 // return the number of days in a given month
 static int getNumberOfDays(int month, int year) {
     switch (month) {
