@@ -3,9 +3,94 @@
 // zongping cui
 #define _CRT_SECURE_NO_WARNINGS
 #include "Calendar.h"
+#include "menu.h"
 #include <stdbool.h>
 #include <stdio.h>
 
+
+
+// C 
+// let user input information and creat a appointment (also generate the uid)
+bool InputAndAddAppointmentToDay(DAY* days[]) {
+    int capacity = GetCapacity();
+    struct tm* chosen_date = GetCurrentTime();
+    printf("Input the date you want to add appointment.\n");
+    ChooseADay(chosen_date);
+
+   
+    int dd = chosen_date->tm_mday;
+    int mm = chosen_date->tm_mon+1;
+    int yy = chosen_date->tm_year + 1900;
+    int index = SearchDayInArrayByDate(days, capacity, *chosen_date);
+    
+    if (index == -1) {
+        int num = GetNumOfDays(days, capacity);
+        if (num == capacity) {
+            printf("no room for more day, please select other date.\n");
+            return false;
+        }
+        days[num] = InitialD(dd, mm, yy);
+        index = num;
+    }
+    
+    
+    char buffer[MAXSIZE];
+    //title
+    char title[MAXSIZE];
+    printf("Enter title: \n");
+    ReadStream(title, MAXSIZE, stdin);
+    //start_time
+    char time_str[MAXSIZE];
+    int formatted = false;
+    do {
+        printf("Enter time (in format hh:mm): \n");
+        ReadStream(time_str, MAXREAD, stdin);
+        if (sscanf(time_str, "%d:%d", &chosen_date->tm_hour, &chosen_date->tm_min) == 2) {
+            formatted = true;
+        }
+        else
+            printf("please retry, error formatted\n");
+    } while (!formatted);
+
+    //duration_minutes
+    printf("Enter duration in minutes: \n");
+    ReadStream(buffer, MAXSIZE, stdin);
+    int duration = atoi(buffer);
+
+    //description
+    printf("Enter description of that appointment: \n");
+    char description[MAXREAD];
+    ReadStream(description, MAXREAD, stdin);
+    // id
+    int id = GenerateUidOfAppt(days, capacity, *chosen_date);
+    APPOINTMENT newA = CreateAppt(id,title,*chosen_date,duration, description, NOT_EXPIRED);
+
+    bool is_add = false;
+
+    if (CheckConflict_Day(days[index], newA)) {
+        printf("! Appointment conflict to existing appointment, go back to previous level\n");
+    }
+    else
+    {
+        printf("\n! Adding appointment: \n\n");
+        PrintAppt(newA);
+        if (ChooseYorN()) {
+            is_add = AddApptToDay(days[index], newA);
+            if (is_add) {
+                return true;
+            }
+        }
+            
+    }
+
+    // clean the empty day
+    if (days[index]->appts == NULL) {
+        DestroyDay(days[index]);
+        days[index] = NULL;
+    }
+    return false;
+
+}
 
 // return the number of days in a given month
 static int getNumberOfDays(int month, int year) {

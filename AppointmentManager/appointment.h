@@ -27,7 +27,7 @@ typedef struct appointment {
 	struct tm start_time; // use struct tm to represent start time
 	int duration_minutes; // duration minutes
 
-	char location[MAXSIZE];
+	//char location[MAXSIZE];
 	char description[MAXTEXT];
 
 	int appointment_status;
@@ -40,7 +40,7 @@ typedef struct appointment {
 
 //C
 
-APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description, int appointment_status);
+APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration,  char* description, int appointment_status);
 void DestroyAppt(APPOINTMENT* a);
 
 
@@ -84,9 +84,9 @@ void SetApptDuration(APPOINTMENT* appt, int duration_minutes);
 
 
 
-void GetApptLocation(APPOINTMENT appt, char* location);
+//void GetApptLocation(APPOINTMENT appt, char* location);
 
-void SetApptLocation(APPOINTMENT* appt, char* location);
+//void SetApptLocation(APPOINTMENT* appt, char* location);
 
 void GetApptDescription(APPOINTMENT appt, char* description);
 

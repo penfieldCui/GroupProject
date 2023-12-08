@@ -1,9 +1,14 @@
 #pragma once
 
 #include "day.h"
+#include "StreamIO.h"
 #include <time.h>
+#include <stdlib.h>
 
 #define DAYLIMIT 100  //don't care about more than 3 months
+
+// c
+bool InputAndAddAppointmentToDay(DAY* days[]);
 
 // Display
 void PrintCalendar(DAY* days[], int month, int year, struct tm local_time);
@@ -17,7 +22,7 @@ bool IsValidDate(int day, int month, int year);
 // by Chris
 // not 0 -  num of day found in days
 // -1 no day found
-// int SearchARangeOfDayInArrayByDate(DAY* days[], DAY* selected_days[], int capacity, struct start_tm, struct end_tm);
+// int SearchARangeOfDayInArrayByDate(DAY* days[], DAY* selected_days[], int capacity, struct tm start_tm, struct tm end_tm);
 // 
 // return index of day in days
 //			return - 1 : not found

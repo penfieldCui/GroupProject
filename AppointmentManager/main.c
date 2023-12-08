@@ -41,10 +41,10 @@ int main(void) {
 	days[7] = InitialD(22, 2, 2024);
 	days[8] = InitialD(29, 1, 2024);
 	days[9] = InitialD(1, 12, 2023);
-	APPOINTMENT a1 = CreateAppt(23120701, "idk\0", *local_time, 30, "\0", "\0", 1);
-	APPOINTMENT a2 = CreateAppt(23120702, "idk\0", *local_time, 30, "\0", "\0", 2);
-	APPOINTMENT a3 = CreateAppt(23120703, "idk\0", *local_time, 30, "\0", "\0", 3);*/
-	APPOINTMENT a4 = CreateAppt(23120704, "idk\0", *local_time, 30, "\0", "\0", 0);
+	APPOINTMENT a1 = CreateAppt(23120701, "idk\0", *local_time, 30,  "\0", 1);
+	APPOINTMENT a2 = CreateAppt(23120702, "idk\0", *local_time, 30,  "\0", 2);
+	APPOINTMENT a3 = CreateAppt(23120703, "idk\0", *local_time, 30,  "\0", 3);*/
+	APPOINTMENT a4 = CreateAppt(23120704, "idk\0", *local_time, 30,  "\0", 0);
 	/*     23:16   */
 
 	LoadAllDays(days, SAVEFILE);
@@ -62,7 +62,7 @@ int main(void) {
 	//AddApptToDay(days[9], a4);
 	PrintDay(days[0]);
 	PrintDay(days[9]);
-	SearchApptById(days, GetCapacity(), 23120704);
+	//SearchApptById(days, GetCapacity(), 23120704);
 	//RemoveApptFromDay(days[9], a3);
 	// test function£¬ generate by today for test only
 	//int newId = GenerateUidOfAppt(days, GetCapacity(), *local_time); 
@@ -74,13 +74,15 @@ int main(void) {
 
 
 	/****    end   ****/
-	APPOINTMENT* tmpAppt;
-	if (tmpAppt = SearchApptById(days, GetCapacity(), 30122303)) {
-		PrintAppt(*tmpAppt);
-	}
-	else {
-		printf("NOT found\n");
-	}
+	//APPOINTMENT* tmpAppt;
+	//if (tmpAppt = SearchApptById(days, GetCapacity(), 30122303)) {
+	//	PrintAppt(*tmpAppt);
+	//}
+	//else {
+	//	printf("NOT found\n");
+	//}
+
+	numOfDay = GetNumOfDays(days, DAYLIMIT);
 	SaveAllDays(days, numOfDay, SAVEFILE);
 
 	DestroyAllDay(days);
