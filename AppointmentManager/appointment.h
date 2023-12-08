@@ -59,7 +59,7 @@ void PrintAppt(APPOINTMENT appt);
 // load
 // save
 
-void saveApptToDisk(APPOINTMENT appt);
+void saveApptToDisk(APPOINTMENT appt, FILE* fp);
 
 
 // get set

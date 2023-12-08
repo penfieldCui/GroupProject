@@ -109,26 +109,38 @@ void DestroyDay(DAY* d) {
 //
 //bool SetYear(DAY* d, int);
 
-bool saveDayToDisk(DAY* d, char* filename) {
+
+
+bool saveDaysToDisk(DAY* days[], int num, char* filename) {
 	
 	FILE* file = fopen(filename, "w");
 	if (file == NULL) {
 		printf("Error opening file.\n");
 		return false;
 	}
-		fprintf(file, "%d\n", d->day);
-		fprintf(file, "%d\n", d->month);
-		fprintf(file, "%d\n", d->year);
-		
+
+	fprintf(file, "Num of days: %d\n", num);
+
+	for (int i = 0; i < num;i++) {
+		fprintf(file, "Date: %d-", days[i]->day);
+		fprintf(file, "%d-", days[i]->month);
+		fprintf(file, "%d\n", days[i]->year);
+
+		int count;
+		count = GetCountList(days[i]->appts);
+		fprintf(file, "Num of appts in that day: %d\n", count);
+
+		SaveListToDisk(days[i]->appts, file);
+	}
 
 	fclose(file);
 	return true;
 }
 
-int main(void) {
-	DAY* d = InitialD(10,5,2023);
-	saveDayToDisk(d,"data_file.dat");
-	
-
-	return 0;
-}
+//int main(void) {
+//	DAY* d = InitialD(10,5,2023);
+//	saveDayToDisk(d,"data_file.dat");
+//	
+//
+//	return 0;
+//}

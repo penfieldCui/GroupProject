@@ -4,10 +4,7 @@
 
 
 #define DAYLIMIT 100  //don't care about appointment more than 3 months
-
-
-
-
+#define SAVEFILE "savefile.dat"
 
 //int test(void) {
 int main(void) {
@@ -31,7 +28,7 @@ int main(void) {
 	days[4] = InitialD(3, 11, 2023);
 	days[5] = InitialD(6, 1, 2023);
 
-	int num = GetNumOfDays(days, DAYLIMIT);
+	int numOfDay = GetNumOfDays(days, DAYLIMIT);
 	
 	APPOINTMENT a = CreateAppt(30122301, "idk\0", *local_time, 30, "\0", "\0");
 
@@ -39,13 +36,18 @@ int main(void) {
 
 
 	AddApptToDay(days[0], a);
-	AddApptToDay(days[0], a);
-	AddApptToDay(days[0], a);
+	AddApptToDay(days[1], a);
+	AddApptToDay(days[4], a);
 
 	AddApptToDay(days[0], a);
+
+	saveDaysToDisk(days, numOfDay, SAVEFILE);
 
 	PrintDay(days[0]);
 	printf("--");
+
+
+
 
 	RemoveApptFromDay(days[0], a);
 	RemoveApptFromDay(days[0], a);

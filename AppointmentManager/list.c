@@ -62,7 +62,9 @@ bool Remove(PLISTNODE* list, APPOINTMENT i) {
 	if (current == NULL)  // not found
 		return false;
 	
-	
+	if (prev == NULL) {
+		return false;
+	}
 	prev->next = current->next;
 	
 	/*do {
@@ -71,6 +73,15 @@ bool Remove(PLISTNODE* list, APPOINTMENT i) {
 	return true;
 }
 
+int GetCountList(PLISTNODE list) {
+	int count = 0;
+	PLISTNODE current = list;
+	while (current != NULL) {
+		count++;
+		current = current->next;
+	}
+	return count;
+}
 
 //PLISTNODE Search(PLISTNODE list, APPOINTMENT i){
 //	PLISTNODE current = list;
@@ -117,7 +128,7 @@ void DestroyList(PLISTNODE* list) {
 bool SaveListToDisk(PLISTNODE list, FILE* fp) {
 	PLISTNODE current = list;
 	while (current != NULL) {
-		SaveAppt(current->data, fp);
+		saveApptToDisk(current->data, fp);
 		current = current->next;
 	}
 	return true;

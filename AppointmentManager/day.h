@@ -32,6 +32,7 @@ void DestroyDay(DAY* d);
 bool AddApptToDay(DAY* d, APPOINTMENT appt);
 bool RemoveApptFromDay(DAY* d, APPOINTMENT appt);
 
+
 // R
 void PrintDay(DAY* d);
 
@@ -49,4 +50,4 @@ int GetYear(DAY* d);
 //bool SetMonth(DAY* d, int);
 //bool SetYear(DAY* d, int);
 
-bool saveDayToDisk(DAY* d, char* filename);
+bool saveDaysToDisk(DAY* d[], int num, char* filename);
