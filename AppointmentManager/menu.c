@@ -7,36 +7,41 @@
 
 
 
-//
+//choose a fay function - user input
 bool ChooseADay(struct tm* time) {
 	char date_str[MAXSIZE];
 	bool is_valid = false;
 	bool is_formatted = false;
 	int day = -1, month = -1, year = -1;
 	do {
+		//input date in 2 formats 1.day-month-year / 2.day-month
 		printf("please enter a date in format dd-MM-yyyy or dd-MM: \n");
 		if (ReadStream(date_str, MAXSIZE, stdin) == NOTREAD)
-			printf("WARN: read failed, please retry\n");
+			printf("WARN: read failed, please retry\n");//failed to read
 		else {
 			// convert to time
+			//day-month-year layout 
 			if (sscanf(date_str, "%d-%d-%d", &day, &month, &year) == 3) {
 				is_valid = IsValidDate(day, month, year);
 			}
+			//day-month layout 
 			else if (sscanf(date_str, "%d-%d", &day, &month) == 2) {
-				struct tm* local_time = GetCurrentTime();
-				year = local_time->tm_year + 1900;
-				is_valid = IsValidDate(day, month, year);
+				struct tm* local_time = GetCurrentTime();//input current time
+				year = local_time->tm_year + 1900; //adjust year
+				is_valid = IsValidDate(day, month, year);//confirm validation of date
 			}
 		}
 
 		if (is_valid) {
-			time->tm_mday = day;
-			time->tm_mon = month - 1;
-			time->tm_year = year - 1900;
+			time->tm_mday = day; //adjust day
+			time->tm_mon = month - 1; //adjust month
+			time->tm_year = year - 1900;//adjsut the year 
 			is_formatted = true;
 		}
 		else {
-			printf("WARN: error formatting %d-%d-%d, please retry\n", day, month, year);
+
+			printf("WARN: error formating %d-%d-%d, please retry\n", day, month, year);//if invalid print an error
+
 		}
 
 	} while (!is_formatted);
@@ -91,7 +96,7 @@ bool ChooseYorN() {
 //}
 
 
-//fgets
+//fgets select an option on menus
 char selectOption() {
 	char letterChoice[MAXMENUREAD];
 	// 11 30
@@ -101,10 +106,11 @@ char selectOption() {
 	return letterChoice[0];
 }
 
-//subMenu for update appointment
+//subMenu for update appointment-7th December - Chris
 bool subMenu_edit(APPOINTMENT* a) {
 	char choice_edit;
 	do {
+		//edit menu layout
 		printf("\n  **** EDIT ****\n\n");
 		printf("a) Start Time\n");
 		printf("b) Duration\n");
@@ -115,7 +121,7 @@ bool subMenu_edit(APPOINTMENT* a) {
 		printf("Enter your choice: ");
 		
 
-
+		//switch cases for edit submenu
 		switch (choice_edit = selectOption()) {
 		case'a':
 			//start time 
@@ -133,17 +139,18 @@ bool subMenu_edit(APPOINTMENT* a) {
 			//exit
 			break;
 		default:
-			printf("!!! WARN: Invalid choice. Please try again.\n");
+			printf("!!! WARN: Invalid choice. Please try again.\n");//if invalid choice
 		}
 	} while (choice_edit != 'q');
 
 	return true;
 }
 
-//subMenu for display appointment
+//subMenu for display appointment - 7th December - Chris
 void subMenu_appointment_display(DAY* day[]) {
 	char choice_day;
 	do {
+		//appointmnet display menu layout
 		printf("\n  **** DISPLAY ****\n\n");
 		printf("a) Appointments in a day\n");
 		printf("b) All appointments\n");
@@ -151,7 +158,7 @@ void subMenu_appointment_display(DAY* day[]) {
 
 		printf("Enter your choice: ");
 		
-
+		//switch cases 
 		switch (choice_day = selectOption()) {
 		case'a':
 			//list of appointment in 1 day
@@ -163,15 +170,18 @@ void subMenu_appointment_display(DAY* day[]) {
 			//exit
 			break;
 		default:
-			printf("!!! WARN: Invalid choice. Please try again.\n");
+			printf("!!! WARN: Invalid choice. Please try again.\n"); //If invalid choice
 		}
 	} while (choice_day != 'q');
 }
-//subMenu for search appointment
+
+//subMenu for search appointment - 7th December - Chris
 void subMenu_search(DAY* days[]) {
+
 	char choice_search;
 	
 	do {
+		//Menu layout
 		printf("\n  **** SEARCH ****\n\n");
 		printf("a) search by title\n");
 		printf("b) search by id\n");
@@ -182,13 +192,20 @@ void subMenu_search(DAY* days[]) {
 		printf("Enter your choice: ");
 		/*scanf("%c", &choice_search);*/
 
+
+		//switch cases for search menu
+
 		APPOINTMENT* tmpAppt;
 		char buffer[MAXREAD];
+
 		switch (choice_search = selectOption()) {
 		case'a':
 			//search by title
 			break;
 		case'b':
+
+
+
 			//search by Id
 			printf("\n- Enter id of a Appointment: ");
 			ReadStream(buffer, MAXREAD, stdin);
@@ -200,6 +217,7 @@ void subMenu_search(DAY* days[]) {
 			else {
 				printf("!Appointment not found.\n");
 			}
+
 			break;
 		case'c':
 			//search by status
@@ -211,14 +229,15 @@ void subMenu_search(DAY* days[]) {
 			//exit
 			break;
 		default:
-			printf("!!! WARN: Invalid choice. Please try again.\n");
+			printf("!!! WARN: Invalid choice. Please try again.\n");//If Invalid choice
 		}
 	} while (choice_search != 'q');
 }
 
 
-// main menu
-void Menu(DAY* days[]) {
+
+// main menu - 7th December - Chris
+void Menu(DAY* day[]) {
 	printf(" ********************************** \n");
 	printf("**        Welcome to\n");
 	printf("**   AppointmentManger\n\n");
