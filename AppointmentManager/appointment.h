@@ -12,6 +12,7 @@
 #define MAXTEXT 255
 #define MAXDATE 11
 #define MAXTIME 6
+#define DATAFILE "data_file.dat"
 
 typedef enum status_enum {
 	NONE = 0, NOT_EXPIRED = 1, EXPIRED = 2 , CANCELED = 3
@@ -57,6 +58,8 @@ void PrintAppt(APPOINTMENT appt);
 // 
 // load
 // save
+
+void saveApptToDisk(APPOINTMENT appt);
 
 
 // get set

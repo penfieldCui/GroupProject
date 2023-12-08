@@ -25,3 +25,5 @@ bool Remove(PLISTNODE* list, APPOINTMENT i);
 
 
 void DestroyList(PLISTNODE* list);
+
+bool SaveListToDisk(PLISTNODE list, FILE* fp);

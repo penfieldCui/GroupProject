@@ -48,3 +48,5 @@ int GetYear(DAY* d);
 //bool SetDay(DAY* d, int);
 //bool SetMonth(DAY* d, int);
 //bool SetYear(DAY* d, int);
+
+bool saveDayToDisk(DAY* d, char* filename);

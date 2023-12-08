@@ -88,6 +88,9 @@ bool nextMonth(int* month, int* year) {
     return true;
 }
 
+
+
+
 int GetNumOfDays(DAY* days[], int capacity) {
     
 
@@ -109,6 +112,7 @@ int SearchDayInArray(DAY** days, int capacity, struct tm time) {
     return -1;
 }
 
+
 //int main() {
 //    //int month, year;
 //    printf("Enter month and year (MM YYYY): \n");
@@ -123,6 +127,6 @@ int SearchDayInArray(DAY** days, int capacity, struct tm time) {
 //    nextMonth(&month,&year);
 //    PrintCalendar(month, year);
 //    DestroyDay(d);
-//
+
 //    return 0;
 //}
