@@ -1,3 +1,6 @@
+//ADT of apptoinmet that holds information and time
+// program71985 - fall23
+// zongping cui
 #pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -38,7 +41,7 @@ typedef struct appointment {
 
 //C
 APPOINTMENT CreateAppt(int id, char* title, struct tm start_time, int duration, char* location, char* description);
-void DestroyAppt(APPOINTMENT a);
+void DestroyAppt(APPOINTMENT* a);
 
 bool CopyAppt(APPOINTMENT* dest, APPOINTMENT src);
 
@@ -80,15 +83,15 @@ void SetApptDuration(APPOINTMENT* appt, int duration_minutes);
 
 void GetApptLocation(APPOINTMENT appt, char* location);
 
-void SetApptLocation(APPOINTMENT* appt, const char* location);
+void SetApptLocation(APPOINTMENT* appt, char* location);
 
 void GetApptDescription(APPOINTMENT appt, char* description);
 
-void SetApptDescription(APPOINTMENT* appt, const char* description);
+void SetApptDescription(APPOINTMENT* appt, char* description);
 
 STATUS_ENUM GetApptStatus(APPOINTMENT appt);
 
 void SetApptStatus(APPOINTMENT* appt, STATUS_ENUM status);
 
 
-void DestroyAppointment(APPOINTMENT* appt);
+//void DestroyAppointment(APPOINTMENT* appt);

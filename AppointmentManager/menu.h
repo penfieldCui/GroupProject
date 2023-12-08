@@ -1,10 +1,24 @@
 
+#include "day.h"
+
 
 #pragma once
 
-void subMenu();
+#include"appointment.h"
+#include"day.h"
+#include<stdbool.h>
 
-void Menu();
+
+
+#define MAXMENUREAD	5
+
+bool subMenu_edit(APPOINTMENT* a);
+
+void subMenu_appointment_display(DAY* day);
+
+void subMenu_search(DAY* day);
+
+void Menu(DAY* day);
 
 
 

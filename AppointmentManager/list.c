@@ -33,7 +33,7 @@ bool Add(PLISTNODE* list, APPOINTMENT i) {
 	return true;
 }
 
-void Remove(PLISTNODE* list, APPOINTMENT i) {
+bool Remove(PLISTNODE* list, APPOINTMENT i) {
 	//if (*list == NULL)    /*  not sure */   //case 0 list empty   nth to remove
 	//	return;
 
@@ -47,7 +47,7 @@ void Remove(PLISTNODE* list, APPOINTMENT i) {
 		else					// case 2 there is second item
 			*list = current->next; 
 		free(current);
-		return;
+		return true;
 	}
 
 	// not empty, head not mach
@@ -60,14 +60,15 @@ void Remove(PLISTNODE* list, APPOINTMENT i) {
 	}
 
 	if (current == NULL)  // not found
-		return;
+		return false;
+	
 	
 	prev->next = current->next;
 	
 	/*do {
 
 	} while ();*/
-
+	return true;
 }
 
 
@@ -107,7 +108,7 @@ void DestroyList(PLISTNODE* list) {
 	while (current != NULL) {
 		PLISTNODE tmp = current;
 		current = current->next;
-		DestroyAppointment(&(tmp->data));
+		DestroyAppt(&(tmp->data));
 		free(tmp);
 	}
 	*list = NULL;  //its better

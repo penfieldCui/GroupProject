@@ -1,4 +1,4 @@
-// function to diplay calader
+// function to display calendar
 // program71985 - fall23
 // zongping cui
 #define _CRT_SECURE_NO_WARNINGS
@@ -36,7 +36,7 @@ int getDayOfWeek(int day, int month, int year) {
 
 // print the calendar
 void PrintCalendar(int month, int year) {
-
+    //strptime();
 
     printf("Calendar for %02d/%d\n", month, year);
     printf("Sun Mon Tue Wed Thu Fri Sat\n");
@@ -59,9 +59,12 @@ void PrintCalendar(int month, int year) {
             printf("\033[0m"); // Set text color to red
         }
 
+        //if (i == days) 
+        //    printf("\033[0m\n");
+
         printf("%3d ", i);
 
-        if ((i + startDay) % 7 == 0) {
+        if ((i + startDay) % 7 == 0) { //end of week
             printf("\n"); 
         }
         //else if (i == days) {
@@ -82,9 +85,34 @@ bool nextMonth(int* month, int* year) {
     else {
         *month += 1;
     }   
+    return true;
 }
 
-// test
+
+
+
+int GetNumOfDays(DAY* days[], int capacity) {
+    
+
+    int num = 0;
+    for (int i = 0; i < capacity; i++) {
+        if (days[i] != NULL)
+            num++;
+    }
+    return num;
+}
+
+int SearchDayInArray(DAY** days, int capacity, struct tm time) {
+    DAY inputD = CreateEmptyD(time.tm_mday, time.tm_mon+1, time.tm_year + 1900);
+    for (int i = 0; i < capacity; i++) {
+        if(CompareDay(days[i], inputD))
+            return i;
+    }
+    
+    return -1;
+}
+
+
 //int main() {
 //    //int month, year;
 //    printf("Enter month and year (MM YYYY): \n");
@@ -99,5 +127,6 @@ bool nextMonth(int* month, int* year) {
 //    nextMonth(&month,&year);
 //    PrintCalendar(month, year);
 //    DestroyDay(d);
+
 //    return 0;
 //}

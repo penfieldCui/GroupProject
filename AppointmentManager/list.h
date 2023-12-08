@@ -17,7 +17,7 @@ void Display(PLISTNODE list);
 
 bool Add(PLISTNODE* list, APPOINTMENT i);
 
-void Remove(PLISTNODE* list, APPOINTMENT i);
+bool Remove(PLISTNODE* list, APPOINTMENT i);
 
 //PLISTNODE Search(PLISTNODE list, APPOINTMENT i);
 
