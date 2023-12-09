@@ -1,6 +1,6 @@
-// list interface
-// czp
-// program71985 - fall23
+// list ADT Header
+// 
+//Zongping Cui - Vinh Le - prog71985 - fall23 - Group 5: Group Project Assignment
 #pragma once
 
 #include "appointment.h"

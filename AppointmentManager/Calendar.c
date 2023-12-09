@@ -1,6 +1,7 @@
-// function to display calendar
-// program71985 - fall23
-// zongping cui
+// calendar ADT implementation
+// 
+//Zongping Cui - Chris Mitskas - prog71985 - fall23 - Group 5: Group Project Assignment
+
 #define _CRT_SECURE_NO_WARNINGS
 #include "Calendar.h"
 #include "menu.h"

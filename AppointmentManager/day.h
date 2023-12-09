@@ -1,6 +1,7 @@
-// ADT of a day to hold appointments
-// program71985 - fall23
-// zongping cui
+// day ADT Header
+// 
+//Zongping Cui - Vinh Le - prog71985 - fall23 - Group 5: Group Project Assignment
+
 #pragma once
 
 #include "list.h"

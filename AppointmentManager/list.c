@@ -1,12 +1,12 @@
+// list ADT implementation
+// 
+//Zongping Cui - Vinh Le - prog71985 - fall23 - Group 5: Group Project Assignment
+
 #include "list.h"
 #include "appointment.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-
-//list impl
-// program71985 - fall23
-// czp NOV 14
 
 void Display(PLISTNODE list) {
 	PLISTNODE current = list;

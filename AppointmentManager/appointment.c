@@ -1,6 +1,7 @@
-// impl of appointment
-// program71985 - fall23
-// zongping cui
+// appointment ADT implementation
+// 
+//Zongping Cui - Chris Mitskas - Vinh Le - prog71985 - fall23 - Group 5: Group Project Assignment
+
 #include "appointment.h"
 #include "StreamIO.h"
 

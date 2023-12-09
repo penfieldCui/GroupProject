@@ -1,7 +1,27 @@
-// main to call menu
+//The program your group will write is:
+//1. a calendar / appointment manager
+// 
+//Your program must have the following mandatory features:
+//1. add a new appt / task / recipe / other
+//2. delete an existing appt / task / recipe / other
+//3. update an existing appt / task / recipe / other
+//4. display single appt / task / recipe / other
+//5. display range appt / task / recipe / other
+//6. display all appt / task / recipe / other
+//7. search for appt / task / recipe / other
+//8. friendly / easy to use UI(or menu system)
+//9. save accumulated data to disk
+//10. load accumulated data from disk
+//11. you may add additional features, increasing your group’s overall mark to a maximum of 100 % .
+//
+//Program Organization
+//• modules properly separated and coded into.h and .c files
+//• modules should be commented according to class practices and include who
+//authored and /or the principal editor of the module
+//• build instructions should be included(or obvious(e.g.a single VS solution))
+//• wherever used, tests(unit or otherwise) should be properly documented and included
+//Zongping Cui - prog71985 - fall23 - Group 5: Group Project
 
-// program71985 - fall23
-// zongping cui
 #include "menu.h"
 #include "Calendar.h"
 #include <stdio.h>

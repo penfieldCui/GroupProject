@@ -1,7 +1,7 @@
-// handle I/O stream
+// I/O stream ADT implementation
+// 
+//Zongping Cui - prog71985 - fall23 - Group 5: Group Project Assignment
 
-// program71985 - fall23 - zongping cui
-// assignment4 - refactor - question2
 #include "StreamIO.h"
 #include <string.h>
 #include <ctype.h>
