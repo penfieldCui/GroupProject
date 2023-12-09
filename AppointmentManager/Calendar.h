@@ -1,7 +1,7 @@
-//Calendar
-// deal with day array and print table
-// program71985 - fall23
-// zongping cui
+// calendar ADT Header
+// 
+//Zongping Cui - Chris Mitskas - prog71985 - fall23 - Group 5: Group Project Assignment
+
 #pragma once
 
 #include "day.h"

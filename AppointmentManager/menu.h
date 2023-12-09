@@ -1,9 +1,6 @@
-// menu
-// display menu and submenu
-// also call feature fucntion
+// menu ADT Header
 // 
-// program71985 - fall23
-// zongping cui, chris
+//Zongping Cui - Chris Mitskas - prog71985 - fall23 - Group 5: Group Project Assignment
 #pragma once
 
 #include"appointment.h"

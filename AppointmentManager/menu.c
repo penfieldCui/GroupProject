@@ -1,7 +1,7 @@
-// all menu fuction
+// menu ADT implementation
+// 
+//Zongping Cui - Chris Mitskas - prog71985 - fall23 - Group 5: Group Project Assignment
 
-// program71985 - fall23
-// zongping cui, chris
 #include "menu.h"
 #include "StreamIO.h"
 #include "Calendar.h"

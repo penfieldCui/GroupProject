@@ -1,6 +1,6 @@
-//ADT of appointment that holds information and time
-// program71985 - fall23
-// zongping cui
+// appointment ADT Header
+// 
+//Zongping Cui - Chris Mitskas - Vinh Le - prog71985 - fall23 - Group 5: Group Project Assignment
 #pragma once
 
 #define _CRT_SECURE_NO_WARNINGS

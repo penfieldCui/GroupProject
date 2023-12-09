@@ -1,5 +1,6 @@
-// handle I/O stream
-// program71985 - fall23 - zongping cui
+// I/O stream ADT Header
+// 
+//Zongping Cui - prog71985 - fall23 - Group 5: Group Project Assignment
 #pragma once
 
 #include <stdio.h>

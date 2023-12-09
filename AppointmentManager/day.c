@@ -1,6 +1,6 @@
-//impl of appt day
-// program71985 - fall23
-// zongping cui
+// day ADT implementation
+// 
+//Zongping Cui - Vinh Le - prog71985 - fall23 - Group 5: Group Project Assignment
 #include "day.h"
 #include <stdlib.h>
 
