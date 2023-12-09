@@ -111,14 +111,20 @@ char selectOption() {
 }
 
 //subMenu for update appointment-7th December - Chris
-bool subMenu_edit(APPOINTMENT* a) {
+bool subMenu_edit(DAY* days[], APPOINTMENT* a) {
+	char buffer[MAXSIZE];
 	char choice_edit;
+	int selection = -2;
+	APPOINTMENT tmp;
 	do {
 		//edit menu layout
-		printf("\n  **** EDIT ****\n\n");
-		printf("a) Start Time\n");
-		printf("b) Duration\n");
-		printf("c) Location\n");
+		//printf("  **** EDIT ****\n\n");
+		printf("\n ****** EDITING ******\n");
+		PrintAppt(*a);
+		printf(" *********************\n");
+		printf("a) Start Time\n");  // hard
+		printf("b) Duration\n");  //easy
+		printf("c) title\n");
 		printf("d) Description\n");
 		printf("e) Appointment status\n");
 		printf("q) Go back\n");
@@ -132,18 +138,90 @@ bool subMenu_edit(APPOINTMENT* a) {
 			//start time 
 			break;
 		case'b':
+			printf("Enter an integer to overwrite previous duration\n");
+			printf("How long will the appointment take (minutes):\n");
+			if (ReadStream(buffer, MAXMENUREAD, stdin) == NOTREAD) {
+				buffer[0] = '\0';
+			}
+			int duration = atoi(buffer);
+			if (duration <=0) {
+				printf("duration should be positive integer;");
+			}
+			else {
+				CopyAppt(&tmp, *a);
+				SetApptDuration(&tmp, duration);
+				int index = SearchDayInArrayByDate(days, GetCapacity(), a->start_time);
+				if (!CheckConflict_Day(days[index], tmp)) {
+					if (ChooseYorN()) {
+						SetApptDuration(a, duration);
+						printf("! duration edited \n");
+					}
+				}
+				else {
+					printf("! Appointment conflicts with existing appointment, go back to previous level\n");
+				}
+			}
 			//duration
 			break;
 		case'c':
-			//location
+			//title
+			printf("Enter new title to overwrite previous data:\n");
+			char title[MAXSIZE];
+			ReadStream(title, MAXSIZE, stdin);
+			if (ChooseYorN()) {
+				SetApptTitle(a, title);
+				printf("! title edited \n");
+			}
+			else {
+				printf("WARN: Update abort.\n");
+			}
 			break;
 		case'd':
 			//description
+			printf("Enter new description to overwrite previous data:\n");
+			char description[MAXREAD];
+			ReadStream(description, MAXREAD, stdin);
+			if (ChooseYorN()) {
+				SetApptDescription(a, description);
+				printf("! description edited \n");
+			}
+			else {
+				printf("WARN: Update abort.\n");
+			}
 			break;
 		case'e':
 			//appointment_status
+			printf("\nChoice a option \n");
+			
+			printf("1: Update to NOT_EXPIRED\n");
+			printf("2: Update to EXPIRED\n");
+			//printf("3) Update to CANCELED\n");
+			//printf("4) Update to \n");
+			printf("Other:  return to previous level\n");
+			printf("\nPlease enter a integer: ");
+			char letterChoice[MAXMENUREAD];
+			if (ReadStream(letterChoice, MAXMENUREAD, stdin) == NOTREAD) {
+				letterChoice[0] = '\0';
+			}
+			selection = atoi(letterChoice);
+
+			switch (selection)
+			{
+			case 1:
+				SetApptStatus(a, NOT_EXPIRED);
+				printf("! appointment status edited \n");
+				break;
+			case 2:
+				SetApptStatus(a, EXPIRED);
+				printf("! appointment status edited \n");
+				break;
+			default:
+				printf("Return\n");
+			}
+			
 			break;
 		case'q':
+			printf("Return to main\n");
 			//exit
 			break;
 		default:
@@ -157,6 +235,8 @@ bool subMenu_edit(APPOINTMENT* a) {
 //subMenu for display appointment - 7th December - Chris
 void subMenu_appointment_display(DAY* days[]) {
 	char choice_day;
+	int num = 0;
+	int capacity = GetCapacity();
 	do {
 		//appointmnet display menu layout
 		printf("\n  **** DISPLAY ****\n\n");
@@ -175,7 +255,7 @@ void subMenu_appointment_display(DAY* days[]) {
 			//list of appointment in 1 day
 			//PrintMonths(days, 1, *time);
 			ChooseADay(time);
-			int index = SearchDayInArrayByDate(days,GetCapacity(),*time);
+			int index = SearchDayInArrayByDate(days, capacity,*time);
 
 			char time_str[MAXSIZE];
 
@@ -189,11 +269,28 @@ void subMenu_appointment_display(DAY* days[]) {
 				printf("\n , please try another.\n\n");
 			}
 			else {
+				printf("\n ********************************** \n\n");
 				PrintDay(days[index]);
 			}
 			break;
 		case'b':
 			//list of all appointments
+
+			num = GetNumOfDays(days, capacity);
+			if (num <= 0) {
+				printf("No appointment founded.\n");
+			}
+			else {
+				PrintMonths(days, NUMMONTHDISPLAY, *time);
+				printf("\n ********************************** \n\n");
+				for (int i = 0; i < capacity; i++) {
+					if (days[i]!= NULL) {
+						PrintDay(days[i]);
+					}
+				}
+			}
+
+
 			break;
 		case'q':
 			//exit
@@ -272,6 +369,10 @@ void Menu(DAY* days[]) {
 	printf("**   AppointmentManger\n");
 	printf(" ********************************** \n");
 	char choice;
+	char buffer[MAXSIZE];
+	int capacity = GetCapacity();
+	int input_id = 0;
+	APPOINTMENT* tmp = NULL;
 	do {
 		printf("\n\n");
 		struct tm time = *(GetCurrentTime());
@@ -284,7 +385,7 @@ void Menu(DAY* days[]) {
 		//add in do - while loop  --for return NULL
 		printf("a) Add Appointment\n"); 
 		printf("b) Update appointment\n"); 
-		printf("c) Delete an appointment\n"); 
+		printf("c) Delete an appointment by Id\n"); 
 		printf("d) Empty a day\n"); 
 		printf("e) Display\n"); 
 		printf("f) Search\n"); 
@@ -303,14 +404,77 @@ void Menu(DAY* days[]) {
 			break;
 		case'b':
 			//input and display of choosen day
-			subMenu_edit(NULL);  //ADD the menu  - TODO put appointment instead of NULL
+			printf("\nplease enter a Id (8bits_integer): ");
+			ReadStream(buffer, MAXSIZE, stdin);
+			input_id = atoi(buffer);
+			if (input_id) {
+				tmp = SearchApptById(days, capacity, input_id);  //find one
+				if (tmp != NULL) {
+					if (!subMenu_edit(days, tmp)) {
+						printf("\nWARN: edit abort\n");
+					}
+				}
+			}
 			//Updating appointment
 			break;
 		case'c':
+			printf("\nplease enter a Id (8bits_integer): ");
+			ReadStream(buffer, MAXSIZE, stdin);
+			input_id = atoi(buffer);
+			if (input_id){
+				tmp = SearchApptById(days, capacity, input_id);  //find one
+				if (tmp != NULL) {
+					int index = SearchDayInArrayByDate(days, capacity, tmp->start_time); 
+					printf("\n!!!!!! Deleting appointment:\n");
+					PrintAppt(*tmp);
+					if (ChooseYorN()) 
+						if (RemoveApptFromDay(days[index], *tmp)) 
+							if (days[index]->appts == NULL) { // if that day has no appointment now
+								printf("!! Currently no appointment\n ");
+								PrintDay(days[index]);
+								DestroyDay(days[index]);
+								days[index] = NULL;
+							}
+					
+				}
+				else {
+					printf("\n\nWARN: Appointment not found\n");
+				}
+			}
+			else {
+				printf("\n\nWARN: Invalid input, delete abort\n");
+			}
+
 			//Delete appointment function
 			break;
 		case'd': 
 			//free a day function
+			ChooseADay(&time);
+
+			int index = SearchDayInArrayByDate(days, capacity, time);
+
+			if (index == -1) {
+				printf("\nWARN: That day has no appointments inside.\n");
+				DAY emptyD = CreateEmptyD(time.tm_mday, time.tm_mon + 1, time.tm_year + 1900);
+				PrintDay(&emptyD);
+			}
+			else {
+				printf("\n ********************************** \n\n");
+				printf("\n!!!!!! Clear every appointment\n");
+				PrintDay(days[index]);
+
+				if (ChooseYorN()) {
+					DestroyDay(days[index]);
+					days[index] = NULL;
+					printf("\n **********************************\n");
+					printf("Clear day succeed\n");
+				}
+				else {
+					printf("\nWARN: abort.\n");
+				}
+			}
+
+
 			break;
 		case'e':
 			//Display submenu

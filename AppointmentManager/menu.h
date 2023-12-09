@@ -14,6 +14,7 @@
 
 #define MAXMENUREAD	5
 #define MAXRETRY 3
+#define NUMMONTHDISPLAY 2
 
 /*    useful   */
 // user input date, convert and return value to struct tm
@@ -24,7 +25,7 @@ bool ChooseADay(struct tm* time);
 bool ChooseYorN();
 /*    useful   */
 
-bool subMenu_edit(APPOINTMENT* a);
+bool subMenu_edit(DAY* days[], APPOINTMENT* a);
 
 void subMenu_appointment_display(DAY* day[]);
 

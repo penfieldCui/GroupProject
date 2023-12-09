@@ -88,8 +88,8 @@ void PrintAppt(APPOINTMENT appt) {
     //Dec 5   not sure
     strftime(start_time_str, MAXSIZE, "%Y-%m-%d %H:%M", &appt.start_time);
 
-    printf("Appointment ID: %d  ", appt.id);
-    printf("  Title: %s , \n", appt.title);
+    printf("Appointment ID: %d\n", appt.id);
+    printf("  -Title: %s\n", appt.title);
     printf("  -Start Time: %s  ", start_time_str);
     printf("  Duration: %d minutes, \n", appt.duration_minutes);
     //printf("  -Location: %s\n", appt.location);

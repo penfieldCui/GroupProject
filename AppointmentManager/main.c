@@ -6,7 +6,7 @@
 #include "Calendar.h"
 #include <stdio.h>
 
-#define NUMMONTHDISPLAY 2
+
 
 #define SAVEFILE "savefile.dat"
 
