@@ -44,7 +44,7 @@ bool CheckConflict_Day(DAY* d, APPOINTMENT appt) {
 	if (d->appts == NULL)
 		return false;
 
-	return Check(&(d->appts), appt);
+	return Check(d->appts, appt);
 }
 
 // list operation

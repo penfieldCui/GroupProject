@@ -74,7 +74,7 @@ bool InputAndAddAppointmentToDay(DAY* days[]) {
     bool is_add = false;
 
     if (CheckConflict_Day(days[index], newA)) {
-        printf("! Appointment conflict to existing appointment, go back to previous level\n");
+        printf("! Appointment conflicts with existing appointment, go back to previous level\n");
     }
     else
     {

@@ -14,10 +14,10 @@ bool CheckConflict(APPOINTMENT a, APPOINTMENT b) {
     //    return false;
     //}
 	time_t start_a = mktime(&a.start_time);
-	time_t end_a = start_a + a.duration_minutes;
+	time_t end_a = start_a + a.duration_minutes * 60;
 
 	time_t start_b = mktime(&b.start_time);
-	time_t end_b = start_b + b.duration_minutes;
+	time_t end_b = start_b + b.duration_minutes * 60;
 
 	return (start_a < end_b) && (end_a > start_b); 
 }
