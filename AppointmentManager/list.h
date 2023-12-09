@@ -1,11 +1,13 @@
+// list interface
+// czp
+// program71985 - fall23
 #pragma once
 
 #include "appointment.h"
 #include <stdbool.h>
 
 
-// list interface
-// czp
+
 
 typedef struct listNode {
 	APPOINTMENT data;

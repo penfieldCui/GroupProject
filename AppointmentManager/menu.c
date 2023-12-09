@@ -1,3 +1,7 @@
+// all menu fuction
+
+// program71985 - fall23
+// zongping cui, chris
 #include "menu.h"
 #include "StreamIO.h"
 #include "Calendar.h"
@@ -116,6 +120,7 @@ bool subMenu_edit(APPOINTMENT* a) {
 		printf("b) Duration\n");
 		printf("c) Location\n");
 		printf("d) Description\n");
+		printf("e) Appointment status\n");
 		printf("q) Go back\n");
 
 		printf("Enter your choice: ");
@@ -135,6 +140,9 @@ bool subMenu_edit(APPOINTMENT* a) {
 		case'd':
 			//description
 			break;
+		case'e':
+			//appointment_status
+			break;
 		case'q':
 			//exit
 			break;
@@ -147,7 +155,7 @@ bool subMenu_edit(APPOINTMENT* a) {
 }
 
 //subMenu for display appointment - 7th December - Chris
-void subMenu_appointment_display(DAY* day[]) {
+void subMenu_appointment_display(DAY* days[]) {
 	char choice_day;
 	do {
 		//appointmnet display menu layout
@@ -159,9 +167,30 @@ void subMenu_appointment_display(DAY* day[]) {
 		printf("Enter your choice: ");
 		
 		//switch cases 
+		struct tm* time = GetCurrentTime();
+		
 		switch (choice_day = selectOption()) {
 		case'a':
+
 			//list of appointment in 1 day
+			//PrintMonths(days, 1, *time);
+			ChooseADay(time);
+			int index = SearchDayInArrayByDate(days,GetCapacity(),*time);
+
+			char time_str[MAXSIZE];
+
+			//Dec 5   not sure
+			strftime(time_str, MAXSIZE, "%Y-%m-%d", time);
+
+
+			if (index == -1) {
+				printf("No appointment in ");
+				printf(time_str);
+				printf("\n , please try another.\n\n");
+			}
+			else {
+				PrintDay(days[index]);
+			}
 			break;
 		case'b':
 			//list of all appointments
@@ -237,14 +266,20 @@ void subMenu_search(DAY* days[]) {
 
 
 // main menu - 7th December - Chris
-void Menu(DAY* day[]) {
+void Menu(DAY* days[]) {
 	printf(" ********************************** \n");
 	printf("**        Welcome to\n");
 	printf("**   AppointmentManger\n\n");
 	char choice;
 	do {
+		printf("\n\n\n");
+		struct tm time = *(GetCurrentTime());
+
 		//display menu
-		printf("\n  **** MAIN ****\n\n");
+
+		PrintMonths(days, 1, time);
+
+		printf("  **** MAIN ****\n\n");
 		//add in do - while loop  --for return NULL
 		printf("a) Add Appointment\n"); 
 		printf("b) Update appointment\n"); 
@@ -261,7 +296,6 @@ void Menu(DAY* day[]) {
 		case'a':
 			//add appointment function
 			printf("\n");
-			PrintMonths(days,1, *(GetCurrentTime()));
 			if (!InputAndAddAppointmentToDay(days))
 				printf("Add abort\n");
 

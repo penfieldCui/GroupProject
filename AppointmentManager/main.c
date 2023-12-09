@@ -1,3 +1,7 @@
+// main to call menu
+
+// program71985 - fall23
+// zongping cui
 #include "menu.h"
 #include "Calendar.h"
 #include <stdio.h>
@@ -18,7 +22,7 @@ int main(void) {
 //int test(void) {
 
 
-	printf("start\n");
+	//printf("start\n");
 	struct tm* local_time = GetCurrentTime();
 	
 	/****    load data   ****/
@@ -44,7 +48,7 @@ int main(void) {
 	APPOINTMENT a1 = CreateAppt(23120701, "idk\0", *local_time, 30,  "\0", 1);
 	APPOINTMENT a2 = CreateAppt(23120702, "idk\0", *local_time, 30,  "\0", 2);
 	APPOINTMENT a3 = CreateAppt(23120703, "idk\0", *local_time, 30,  "\0", 3);*/
-	APPOINTMENT a4 = CreateAppt(23120704, "idk\0", *local_time, 30,  "\0", 0);
+	//APPOINTMENT a4 = CreateAppt(23120704, "idk\0", *local_time, 30,  "\0", 0);
 	/*     23:16   */
 
 	LoadAllDays(days, SAVEFILE);
@@ -52,7 +56,7 @@ int main(void) {
 	
 	//int index = SearchDayInArrayByDate(days, DAYLIMIT, *local_time);
 	//->tm_mon + 1, local_time->tm_year + 1900
-	PrintMonths(days, NUMMONTHDISPLAY, *local_time);
+	//PrintMonths(days, NUMMONTHDISPLAY, *local_time);
 
 	/*     23:16   */
 	//AddApptToDay(days[9], a1);
@@ -60,8 +64,8 @@ int main(void) {
 	//AddApptToDay(days[9], a3);
 
 	//AddApptToDay(days[9], a4);
-	PrintDay(days[0]);
-	PrintDay(days[9]);
+	//PrintDay(days[0]);
+	//PrintDay(days[9]);
 	//SearchApptById(days, GetCapacity(), 23120704);
 	//RemoveApptFromDay(days[9], a3);
 	// test function£¬ generate by today for test only

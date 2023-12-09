@@ -1,3 +1,7 @@
+//Calendar
+// deal with day array and print table
+// program71985 - fall23
+// zongping cui
 #pragma once
 
 #include "day.h"

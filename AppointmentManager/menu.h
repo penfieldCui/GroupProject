@@ -1,3 +1,9 @@
+// menu
+// display menu and submenu
+// also call feature fucntion
+// 
+// program71985 - fall23
+// zongping cui, chris
 #pragma once
 
 #include"appointment.h"

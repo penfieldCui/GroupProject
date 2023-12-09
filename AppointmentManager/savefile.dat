@@ -1,4 +1,4 @@
-Num of days: 1
+Num of days: 3
 Date: 9-12-2023
 Num of appts in that day: 1
 appointment ID: 23120901
@@ -7,3 +7,25 @@ title: first
 start Time: 2023-12-09 11:10
 duration: 20 minutes
 description: qwe
+Date: 11-12-2023
+Num of appts in that day: 2
+appointment ID: 23121101
+appointment_status: 1
+title: second
+start Time: 2023-12-11 23:00
+duration: 44 minutes
+description: 123
+appointment ID: 23121102
+appointment_status: 1
+title: sec in 11/12/2023
+start Time: 2023-12-11 23:50
+duration: 11 minutes
+description: cross 2 days?
+Date: 22-12-2023
+Num of appts in that day: 1
+appointment ID: 23122201
+appointment_status: 1
+title: third
+start Time: 2023-12-22 00:01
+duration: 12 minutes
+description: 12

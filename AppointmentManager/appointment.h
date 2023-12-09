@@ -1,4 +1,4 @@
-//ADT of apptoinmet that holds information and time
+//ADT of appointment that holds information and time
 // program71985 - fall23
 // zongping cui
 #pragma once
